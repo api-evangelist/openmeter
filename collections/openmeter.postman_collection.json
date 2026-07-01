@@ -1,0 +1,447 @@
+{
+  "info": {
+    "name": "OpenMeter API",
+    "description": "Representative Postman collection for the OpenMeter Cloud API (https://openmeter.cloud/api/v1). Usage is ingested as CloudEvents, aggregated by meters, queried, and turned into entitlements, grants, notifications, and billing. Authenticate with a Bearer token.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://openmeter.cloud/api/v1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "Ingest events (CloudEvents)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/cloudevents+json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"specversion\": \"1.0\",\n  \"id\": \"00001\",\n  \"source\": \"my-app\",\n  \"type\": \"api-calls\",\n  \"subject\": \"customer-1\",\n  \"data\": { \"tokens\": 1024, \"method\": \"GET\", \"path\": \"/v1/resource\" }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"]
+            },
+            "description": "Ingests a single event or batch of events following the CloudEvents specification. Use application/cloudevents-batch+json to send a batch."
+          }
+        },
+        {
+          "name": "List ingested events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"]
+            },
+            "description": "Lists ingested events with optional time and subject filters."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Meters",
+      "item": [
+        {
+          "name": "List meters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/meters",
+              "host": ["{{baseUrl}}"],
+              "path": ["meters"]
+            }
+          }
+        },
+        {
+          "name": "Create meter",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slug\": \"api_requests\",\n  \"eventType\": \"api-calls\",\n  \"aggregation\": \"COUNT\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/meters",
+              "host": ["{{baseUrl}}"],
+              "path": ["meters"]
+            }
+          }
+        },
+        {
+          "name": "Get meter",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/meters/:meterIdOrSlug",
+              "host": ["{{baseUrl}}"],
+              "path": ["meters", ":meterIdOrSlug"],
+              "variable": [{ "key": "meterIdOrSlug", "value": "api_requests" }]
+            }
+          }
+        },
+        {
+          "name": "Query meter",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/meters/:meterIdOrSlug/query?windowSize=DAY",
+              "host": ["{{baseUrl}}"],
+              "path": ["meters", ":meterIdOrSlug", "query"],
+              "query": [{ "key": "windowSize", "value": "DAY" }],
+              "variable": [{ "key": "meterIdOrSlug", "value": "api_requests" }]
+            },
+            "description": "Query aggregated usage for a meter across a time range and window, filtered/grouped by subject and groupBy dimensions."
+          }
+        },
+        {
+          "name": "List meter subjects",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/meters/:meterIdOrSlug/subjects",
+              "host": ["{{baseUrl}}"],
+              "path": ["meters", ":meterIdOrSlug", "subjects"],
+              "variable": [{ "key": "meterIdOrSlug", "value": "api_requests" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Subjects",
+      "item": [
+        {
+          "name": "List subjects",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/subjects",
+              "host": ["{{baseUrl}}"],
+              "path": ["subjects"]
+            }
+          }
+        },
+        {
+          "name": "Upsert subjects",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "[{ \"key\": \"customer-1\", \"displayName\": \"Customer One\" }]",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/subjects",
+              "host": ["{{baseUrl}}"],
+              "path": ["subjects"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "List customers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/customers",
+              "host": ["{{baseUrl}}"],
+              "path": ["customers"]
+            }
+          }
+        },
+        {
+          "name": "Create customer",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Acme Inc\",\n  \"currency\": \"USD\",\n  \"usageAttribution\": { \"subjectKeys\": [\"customer-1\"] }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/customers",
+              "host": ["{{baseUrl}}"],
+              "path": ["customers"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Features",
+      "item": [
+        {
+          "name": "List features",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/features",
+              "host": ["{{baseUrl}}"],
+              "path": ["features"]
+            }
+          }
+        },
+        {
+          "name": "Create feature",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"api_requests\",\n  \"name\": \"API Requests\",\n  \"meterSlug\": \"api_requests\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/features",
+              "host": ["{{baseUrl}}"],
+              "path": ["features"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Entitlements",
+      "item": [
+        {
+          "name": "List all entitlements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/entitlements",
+              "host": ["{{baseUrl}}"],
+              "path": ["entitlements"]
+            }
+          }
+        },
+        {
+          "name": "Create a subject entitlement",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"metered\",\n  \"featureKey\": \"api_requests\",\n  \"usagePeriod\": { \"interval\": \"MONTH\" },\n  \"issueAfterReset\": 10000\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/subjects/:subjectIdOrKey/entitlements",
+              "host": ["{{baseUrl}}"],
+              "path": ["subjects", ":subjectIdOrKey", "entitlements"],
+              "variable": [{ "key": "subjectIdOrKey", "value": "customer-1" }]
+            }
+          }
+        },
+        {
+          "name": "Get entitlement value",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/subjects/:subjectIdOrKey/entitlements/:entitlementIdOrFeatureKey/value",
+              "host": ["{{baseUrl}}"],
+              "path": ["subjects", ":subjectIdOrKey", "entitlements", ":entitlementIdOrFeatureKey", "value"],
+              "variable": [
+                { "key": "subjectIdOrKey", "value": "customer-1" },
+                { "key": "entitlementIdOrFeatureKey", "value": "api_requests" }
+              ]
+            },
+            "description": "Get hasAccess plus current balance, usage, and overage for the entitlement."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Grants",
+      "item": [
+        {
+          "name": "List grants",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/grants",
+              "host": ["{{baseUrl}}"],
+              "path": ["grants"]
+            }
+          }
+        },
+        {
+          "name": "Create a grant on an entitlement",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 1000,\n  \"priority\": 1,\n  \"expiration\": { \"duration\": \"MONTH\", \"count\": 1 }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/subjects/:subjectIdOrKey/entitlements/:entitlementIdOrFeatureKey/grants",
+              "host": ["{{baseUrl}}"],
+              "path": ["subjects", ":subjectIdOrKey", "entitlements", ":entitlementIdOrFeatureKey", "grants"],
+              "variable": [
+                { "key": "subjectIdOrKey", "value": "customer-1" },
+                { "key": "entitlementIdOrFeatureKey", "value": "api_requests" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "List notification channels",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notification/channels",
+              "host": ["{{baseUrl}}"],
+              "path": ["notification", "channels"]
+            }
+          }
+        },
+        {
+          "name": "Create a notification channel",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"WEBHOOK\",\n  \"name\": \"My Webhook\",\n  \"url\": \"https://example.com/webhooks/openmeter\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/notification/channels",
+              "host": ["{{baseUrl}}"],
+              "path": ["notification", "channels"]
+            }
+          }
+        },
+        {
+          "name": "List notification rules",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notification/rules",
+              "host": ["{{baseUrl}}"],
+              "path": ["notification", "rules"]
+            }
+          }
+        },
+        {
+          "name": "List notification events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notification/events",
+              "host": ["{{baseUrl}}"],
+              "path": ["notification", "events"]
+            },
+            "description": "List delivered notification events with per-channel delivery status."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Billing & Plans",
+      "item": [
+        {
+          "name": "List invoices",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/billing/invoices",
+              "host": ["{{baseUrl}}"],
+              "path": ["billing", "invoices"]
+            }
+          }
+        },
+        {
+          "name": "List billing profiles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/billing/profiles",
+              "host": ["{{baseUrl}}"],
+              "path": ["billing", "profiles"]
+            }
+          }
+        },
+        {
+          "name": "List plans",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/plans",
+              "host": ["{{baseUrl}}"],
+              "path": ["plans"]
+            }
+          }
+        },
+        {
+          "name": "Create plan",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"pro\",\n  \"name\": \"Pro\",\n  \"currency\": \"USD\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/plans",
+              "host": ["{{baseUrl}}"],
+              "path": ["plans"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

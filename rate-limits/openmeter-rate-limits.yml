@@ -1,0 +1,62 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: OpenMeter
+providerId: openmeter
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Usage Metering
+- Billing
+- Entitlements
+- CloudEvents
+- Open Source
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Self-hosted open-source OpenMeter imposes no vendor rate limits - throughput
+  is bounded only by the infrastructure you run (ingestion, ClickHouse, Kafka).
+  OpenMeter Cloud enforces plan-dependent limits on API request rate and on
+  ingested/metered event volume; batch CloudEvents ingestion is the recommended
+  path for high-throughput event streams. Specific per-tier request-per-second
+  and monthly event ceilings are set on the OpenMeter pricing/plan pages and are
+  not reconciled in this artifact.
+notes: >-
+  Confirm OpenMeter Cloud request-rate and event-volume limits per tier on the
+  pricing page during reconciliation. Use batch ingestion
+  (application/cloudevents-batch+json) to stay within request-rate limits at
+  scale.
+sources:
+- https://openmeter.io/docs/getting-started/ingestion
+- https://openmeter.io/pricing
+- https://github.com/openmeterio/openmeter
+responseCodes:
+  throttled: 429
+limits:
+- name: API Requests
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Cloud request-rate limits vary by plan; open source is unlimited (infra-bound).
+- name: Ingested Events
+  scope: account
+  metric: events
+  limit: see plan allowance
+  notes: Metered/ingested events counted against the monthly plan allowance on Cloud.
+- name: Batch Ingestion
+  scope: request
+  metric: events
+  limit: batch payload size bound
+  notes: Prefer application/cloudevents-batch+json to ingest many events per request.
+policies:
+- name: Tiered Limits
+  description: Request-rate and event-volume ceilings rise across Cloud Free, Usage-Based, and Enterprise tiers.
+- name: Self-Hosted Unlimited
+  description: The open-source deployment has no vendor-imposed limits; throughput is bounded by your own infrastructure.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on HTTP 429.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

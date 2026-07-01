@@ -1,0 +1,127 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: OpenMeter
+providerId: openmeter
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Usage Metering
+- Billing
+- Entitlements
+- CloudEvents
+- Open Source
+- Plans
+description: >-
+  OpenMeter ships as a free, Apache-2.0 open-source project you self-host, and
+  as OpenMeter Cloud, a managed service. Cloud offers a free tier to get
+  started, usage-based paid tiers priced on ingested/metered events, and an
+  Enterprise tier with SSO, higher volumes, dedicated support, and negotiated
+  terms. Exact Cloud tier prices are set on the OpenMeter pricing page and
+  should be verified there; the entries below capture the shape of the tiers,
+  not fixed dollar figures.
+notes: >-
+  Verify current OpenMeter Cloud tier names, included event volumes, and
+  per-event overage rates on the pricing page during reconciliation. The
+  open-source project itself is free; infrastructure (e.g. ClickHouse, Kafka)
+  is self-hosted at your own cost.
+sources:
+- https://openmeter.io/pricing
+- https://openmeter.io/docs
+- https://github.com/openmeterio/openmeter
+plans:
+- id: openmeter-oss
+  name: Open Source
+  type: free
+  description: >-
+    Self-hosted, Apache-2.0 licensed OpenMeter. Full metering, entitlements,
+    and billing surface with no license fee; you run and pay for the underlying
+    infrastructure.
+  entries:
+  - label: Open Source License
+    name: oss
+    type: flat
+    metric: license
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0 (Apache 2.0, self-hosted)
+    userMultiplied: false
+  elements:
+  - name: Event Ingestion (CloudEvents)
+  - name: Meters and Usage Query
+  - name: Entitlements, Features, Grants
+  - name: Notifications
+  - name: Billing and Plans
+- id: openmeter-cloud-free
+  name: Cloud Free
+  type: free
+  description: >-
+    Managed OpenMeter Cloud free tier for getting started, with a capped
+    monthly metered-event allowance.
+  entries:
+  - label: Included Metered Events
+    name: cloud_free_events
+    type: usage
+    metric: events
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: included up to the free monthly event allowance
+    userMultiplied: false
+  elements:
+  - name: Event Ingestion (CloudEvents)
+  - name: Meters and Usage Query
+  - name: Entitlements
+  - name: Notifications
+- id: openmeter-cloud-usage
+  name: Cloud Usage-Based
+  type: usage
+  description: >-
+    Managed OpenMeter Cloud paid tier billed on metered event volume above the
+    included allowance, with the full metering, entitlements, and billing
+    surface.
+  entries:
+  - label: Metered Events
+    name: cloud_metered_events
+    type: usage
+    metric: events
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: per-1M metered events; see OpenMeter pricing page
+    userMultiplied: false
+  elements:
+  - name: Event Ingestion (CloudEvents)
+  - name: Meters and Usage Query
+  - name: Entitlements, Features, Grants
+  - name: Notifications and Webhooks
+  - name: Billing, Plans, and Stripe Integration
+- id: openmeter-cloud-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Volume commitments, SSO/SAML, higher throughput and retention, SLAs,
+    dedicated support, and negotiated terms. Contact OpenMeter sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: SSO / SAML
+  - name: High-Volume Metering
+  - name: Dedicated Support and SLAs
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,108 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: OpenMeter
+providerId: openmeter
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Usage Metering
+- Billing
+- Entitlements
+- CloudEvents
+- Open Source
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of OpenMeter. OpenMeter is itself a FinOps-enabling tool - it
+  meters product/API usage and turns it into entitlements and invoices - so
+  this artifact covers both the cost of running OpenMeter and the usage meters
+  OpenMeter produces for your own products. OpenMeter Cloud is billed on metered
+  event volume; the open-source deployment carries only self-hosted
+  infrastructure cost (ingestion, ClickHouse, Kafka/streaming).
+notes: >-
+  Cloud tier prices and included event allowances are subject to change; verify
+  against the OpenMeter pricing page during reconciliation. The meters listed
+  below are representative of what OpenMeter itself emits and of what you would
+  typically define for an AI/API product.
+sources:
+- https://openmeter.io/pricing
+- https://openmeter.io/docs
+- https://github.com/openmeterio/openmeter
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: OpenMeter
+serviceCategory: Analytics and Metering
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: OpenMeter Cloud
+  ServiceCategory: Analytics and Metering
+  ProviderName: OpenMeter
+  PublisherName: OpenMeter
+  InvoiceIssuerName: OpenMeter
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: ingested_events
+  description: CloudEvents ingested into OpenMeter, the primary Cloud billing metric.
+  unit: events
+  aggregation: sum
+  dimensions:
+  - account
+  - source
+  - eventType
+- name: metered_events
+  description: Events matched and aggregated by a meter (valid, non-duplicate).
+  unit: events
+  aggregation: sum
+  dimensions:
+  - account
+  - meter
+- name: usage_value
+  description: Aggregated metered value produced by meters (SUM/COUNT/etc.) for a product's own usage.
+  unit: units
+  aggregation: sum
+  dimensions:
+  - meter
+  - subject
+- name: entitlement_balance
+  description: Remaining metered entitlement balance per subject/feature.
+  unit: units
+  aggregation: min
+  dimensions:
+  - subject
+  - feature
+- name: invoiced_amount
+  description: Amount invoiced to customers via OpenMeter billing (Stripe-backed).
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - customer
+  - plan
+principles:
+- name: Visibility
+  description: Use OpenMeter's own meter query and usage endpoints to see per-subject usage in near real time; export Cloud billing for OpenMeter spend.
+- name: Allocation
+  description: Attribute usage to subjects/customers via the CloudEvent subject field; group by tenant/team/feature with meter groupBy.
+- name: Optimization
+  description: Self-host the open-source project to avoid Cloud fees where infra is available; batch-ingest events to cut request overhead; dedupe by event id.
+- name: Accountability
+  description: Set entitlement thresholds and notification rules so teams are alerted before overage; review metered volume against plan allowances monthly.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

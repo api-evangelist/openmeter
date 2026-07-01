@@ -1,0 +1,230 @@
+aid: openmeter
+url: https://raw.githubusercontent.com/api-evangelist/openmeter/refs/heads/main/apis.yml
+name: OpenMeter
+kind: company
+description: OpenMeter is open-source usage metering and billing for AI and API
+  products. It ingests usage events as CloudEvents, aggregates them through meters,
+  answers usage queries, and turns that usage into entitlements, balances, grants,
+  usage-driven notifications, and Stripe-backed billing. Available as an open-source
+  project and as OpenMeter Cloud with a Bearer-token REST API at
+  https://openmeter.cloud/api/v1.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Usage Metering
+- Billing
+- Entitlements
+- CloudEvents
+- Open Source
+- AI
+created: '2026-07-01'
+modified: '2026-07-01'
+specificationVersion: '0.19'
+apis:
+- aid: openmeter:openmeter-events-ingestion-api
+  name: OpenMeter Events Ingestion API
+  tags:
+  - Events
+  - Ingestion
+  - CloudEvents
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://openmeter.io/docs/getting-started/ingestion
+  baseURL: https://openmeter.cloud/api/v1
+  properties:
+  - url: https://openmeter.io/docs/getting-started/ingestion
+    type: Documentation
+  - url: https://openmeter.io/docs/api
+    type: APIReference
+  - url: openapi/openmeter-openapi.yml
+    type: OpenAPI
+  - url: collections/openmeter.postman_collection.json
+    type: PostmanCollection
+  - url: collections/openmeter.opencollection.json
+    type: OpenCollection
+  description: Ingests single or batched usage events that follow the CloudEvents
+    1.0 specification (application/cloudevents+json and cloudevents-batch+json),
+    and lists ingested events for debugging. Event id enables idempotent
+    deduplication; subject attributes usage; data carries the metered payload.
+- aid: openmeter:openmeter-meters-api
+  name: OpenMeter Meters API
+  tags:
+  - Meters
+  - Aggregation
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://openmeter.io/docs/getting-started/meters
+  baseURL: https://openmeter.cloud/api/v1
+  properties:
+  - url: https://openmeter.io/docs/getting-started/meters
+    type: Documentation
+  - url: openapi/openmeter-openapi.yml
+    type: OpenAPI
+  - url: collections/openmeter.postman_collection.json
+    type: PostmanCollection
+  - url: collections/openmeter.opencollection.json
+    type: OpenCollection
+  description: Create, list, get, and delete meters that aggregate CloudEvents by
+    eventType using SUM, COUNT, UNIQUE_COUNT, AVG, MIN, or MAX, reading the metered
+    value and group-by dimensions from event data via JSONPath.
+- aid: openmeter:openmeter-usage-query-api
+  name: OpenMeter Usage Query API
+  tags:
+  - Usage
+  - Query
+  - Analytics
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://openmeter.io/docs/getting-started/query-usage
+  baseURL: https://openmeter.cloud/api/v1
+  properties:
+  - url: https://openmeter.io/docs/getting-started/query-usage
+    type: Documentation
+  - url: openapi/openmeter-openapi.yml
+    type: OpenAPI
+  - url: collections/openmeter.postman_collection.json
+    type: PostmanCollection
+  - url: collections/openmeter.opencollection.json
+    type: OpenCollection
+  description: Queries aggregated usage for a meter across a time range with
+    MINUTE / HOUR / DAY windows, filtered and grouped by subject and custom
+    groupBy dimensions, plus listing the subjects that have reported usage.
+- aid: openmeter:openmeter-subjects-api
+  name: OpenMeter Subjects API
+  tags:
+  - Subjects
+  - Metering
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://openmeter.io/docs/getting-started/subjects
+  baseURL: https://openmeter.cloud/api/v1
+  properties:
+  - url: https://openmeter.io/docs/getting-started/subjects
+    type: Documentation
+  - url: openapi/openmeter-openapi.yml
+    type: OpenAPI
+  - url: collections/openmeter.postman_collection.json
+    type: PostmanCollection
+  - url: collections/openmeter.opencollection.json
+    type: OpenCollection
+  description: Upserts, lists, gets, and deletes subjects - the keys (users,
+    customers, tenants) that events are attributed to and that entitlements are
+    provisioned against, optionally mapped to a Stripe customer.
+- aid: openmeter:openmeter-entitlements-api
+  name: OpenMeter Entitlements API
+  tags:
+  - Entitlements
+  - Balances
+  - Access Control
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://openmeter.io/docs/entitlements/overview
+  baseURL: https://openmeter.cloud/api/v1
+  properties:
+  - url: https://openmeter.io/docs/entitlements/overview
+    type: Documentation
+  - url: openapi/openmeter-openapi.yml
+    type: OpenAPI
+  - url: collections/openmeter.postman_collection.json
+    type: PostmanCollection
+  - url: collections/openmeter.opencollection.json
+    type: OpenCollection
+  description: Creates and manages metered, boolean, and static entitlements per
+    subject and returns the entitlement value - hasAccess plus current balance,
+    usage, and overage - so applications can gate features and enforce usage
+    limits in real time.
+- aid: openmeter:openmeter-features-api
+  name: OpenMeter Features API
+  tags:
+  - Features
+  - Catalog
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://openmeter.io/docs/entitlements/features
+  baseURL: https://openmeter.cloud/api/v1
+  properties:
+  - url: https://openmeter.io/docs/entitlements/features
+    type: Documentation
+  - url: openapi/openmeter-openapi.yml
+    type: OpenAPI
+  - url: collections/openmeter.postman_collection.json
+    type: PostmanCollection
+  - url: collections/openmeter.opencollection.json
+    type: OpenCollection
+  description: Defines the features that entitlements attach to, optionally bound to
+    a meter for metered entitlements; supports create, list, get, and archive.
+- aid: openmeter:openmeter-grants-api
+  name: OpenMeter Grants API
+  tags:
+  - Grants
+  - Balances
+  - Credits
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://openmeter.io/docs/entitlements/grants
+  baseURL: https://openmeter.cloud/api/v1
+  properties:
+  - url: https://openmeter.io/docs/entitlements/grants
+    type: Documentation
+  - url: openapi/openmeter-openapi.yml
+    type: OpenAPI
+  - url: collections/openmeter.postman_collection.json
+    type: PostmanCollection
+  - url: collections/openmeter.opencollection.json
+    type: OpenCollection
+  description: Issues, lists, and voids usage grants that top up a metered
+    entitlement's balance, with priority-based burn-down, expiration, and
+    recurrence for allowances and credits.
+- aid: openmeter:openmeter-notifications-api
+  name: OpenMeter Notifications API
+  tags:
+  - Notifications
+  - Webhooks
+  - Alerts
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://openmeter.io/docs/notifications/overview
+  baseURL: https://openmeter.cloud/api/v1
+  properties:
+  - url: https://openmeter.io/docs/notifications/overview
+    type: Documentation
+  - url: openapi/openmeter-openapi.yml
+    type: OpenAPI
+  - url: collections/openmeter.postman_collection.json
+    type: PostmanCollection
+  - url: collections/openmeter.opencollection.json
+    type: OpenCollection
+  description: Manages webhook notification channels and rules (such as entitlement
+    balance thresholds) and lists delivered notification events with per-channel
+    delivery status, so systems react to usage as it happens.
+- aid: openmeter:openmeter-billing-plans-api
+  name: OpenMeter Billing and Plans API
+  tags:
+  - Billing
+  - Plans
+  - Invoicing
+  - Stripe
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://openmeter.io/docs/billing/overview
+  baseURL: https://openmeter.cloud/api/v1
+  properties:
+  - url: https://openmeter.io/docs/billing/overview
+    type: Documentation
+  - url: openapi/openmeter-openapi.yml
+    type: OpenAPI
+  - url: collections/openmeter.postman_collection.json
+    type: PostmanCollection
+  - url: collections/openmeter.opencollection.json
+    type: OpenCollection
+  description: Turns metered usage into revenue - product-catalog plans, customers,
+    billing profiles, and invoices - with Stripe-backed invoicing and payment
+    collection.
+common:
+- type: GitHubOrganization
+  url: https://github.com/openmeterio
+- type: LinkedIn
+  url: https://www.linkedin.com/company/openmeter
+- type: Website
+  url: https://openmeter.io/
+- type: Documentation
+  url: https://openmeter.io/docs
+- type: Plans
+  url: plans/openmeter-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/openmeter-rate-limits.yml
+- type: FinOps
+  url: finops/openmeter-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

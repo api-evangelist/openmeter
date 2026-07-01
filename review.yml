@@ -1,0 +1,84 @@
+aid: openmeter
+name: OpenMeter
+review:
+  question: Does OpenMeter expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-01'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    OpenMeter's public interface is a REST (HTTPS) API under
+    https://openmeter.cloud/api/v1. It has no documented WebSocket or
+    Server-Sent Events surface, so no AsyncAPI document was authored. Its
+    real-time / event-driven behavior is expressed two ways that are not
+    client-facing streaming transports: (1) usage is INGESTED as CloudEvents
+    over HTTP POST /api/v1/events, and (2) usage-driven alerts are DELIVERED
+    outbound as webhooks via notification channels, not consumed over a socket.
+findings:
+  summary: |
+    OpenMeter does not publish a documented public WebSocket API. Both
+    OpenMeter Cloud and the open-source project expose a REST/HTTPS API under
+    /api/v1 secured with a Bearer token. Event ingestion uses HTTP POST with
+    CloudEvents media types (application/cloudevents+json and
+    application/cloudevents-batch+json). Server-to-client push is handled by
+    outbound WEBHOOK notification channels (Svix-compatible signing), not by a
+    ws:// or wss:// endpoint. Internally OpenMeter uses Kafka/streaming and
+    ClickHouse, but those are infrastructure components, not a public
+    client-facing streaming API.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://openmeter.cloud/api/v1
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Outbound notification delivery to a customer-supplied HTTPS URL via notification channels. Server-to-client push, not a socket the client connects to.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in OpenMeter's API reference or docs as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://openmeter.cloud/api/v1/events
+    - GET    https://openmeter.cloud/api/v1/events
+    - GET    https://openmeter.cloud/api/v1/meters
+    - POST   https://openmeter.cloud/api/v1/meters
+    - GET    https://openmeter.cloud/api/v1/meters/{meterIdOrSlug}/query
+    - GET    https://openmeter.cloud/api/v1/meters/{meterIdOrSlug}/subjects
+    - GET    https://openmeter.cloud/api/v1/subjects
+    - POST   https://openmeter.cloud/api/v1/subjects
+    - GET    https://openmeter.cloud/api/v1/customers
+    - POST   https://openmeter.cloud/api/v1/customers
+    - GET    https://openmeter.cloud/api/v1/features
+    - GET    https://openmeter.cloud/api/v1/entitlements
+    - POST   https://openmeter.cloud/api/v1/subjects/{subjectIdOrKey}/entitlements
+    - GET    https://openmeter.cloud/api/v1/subjects/{subjectIdOrKey}/entitlements/{entitlementIdOrFeatureKey}/value
+    - GET    https://openmeter.cloud/api/v1/grants
+    - POST   https://openmeter.cloud/api/v1/subjects/{subjectIdOrKey}/entitlements/{entitlementIdOrFeatureKey}/grants
+    - GET    https://openmeter.cloud/api/v1/notification/channels
+    - GET    https://openmeter.cloud/api/v1/notification/rules
+    - GET    https://openmeter.cloud/api/v1/notification/events
+    - GET    https://openmeter.cloud/api/v1/billing/invoices
+    - GET    https://openmeter.cloud/api/v1/plans
+sources:
+  - url: https://openmeter.io/docs
+    type: Documentation
+    note: Documents the REST API base and getting-started flows; no WebSocket mentioned.
+  - url: https://openmeter.io/docs/api
+    type: APIReference
+    note: All documented endpoints are HTTPS REST under /api/v1.
+  - url: https://github.com/openmeterio/openmeter
+    type: SourceCode
+    note: Canonical OpenAPI (api/openapi.yaml) confirms REST + CloudEvents ingestion + outbound webhook notifications; no WebSocket surface.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE client-facing streaming surface exists, so no AsyncAPI
+    document was authored. CloudEvents ingestion is inbound HTTP POST and
+    notifications are outbound webhooks; both are documented as HTTP transports
+    in apis.yml and the OpenAPI spec so they are never misrepresented as
+    WebSocket.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

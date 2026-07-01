@@ -1,0 +1,483 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenMeter API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ingest events (CloudEvents).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/events",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"specversion\": \"1.0\",\n  \"id\": \"00001\",\n  \"source\": \"my-app\",\n  \"type\": \"api-calls\",\n  \"subject\": \"customer-1\",\n  \"data\": { \"tokens\": 1024, \"method\": \"GET\", \"path\": \"/v1/resource\" }\n}"
+            }
+          },
+          "docs": "Ingests a single event or batch of events following the CloudEvents specification. Use Content-Type application/cloudevents+json for a single event or application/cloudevents-batch+json for a batch."
+        },
+        {
+          "info": {
+            "name": "List ingested events.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/events"
+          },
+          "docs": "Lists ingested events with optional time and subject filters."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Meters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List meters.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/meters"
+          },
+          "docs": "List meters."
+        },
+        {
+          "info": {
+            "name": "Create meter.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/meters",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"slug\": \"api_requests\",\n  \"eventType\": \"api-calls\",\n  \"aggregation\": \"COUNT\"\n}"
+            }
+          },
+          "docs": "Create a meter that aggregates a CloudEvent type."
+        },
+        {
+          "info": {
+            "name": "Get meter.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/meters/:meterIdOrSlug",
+            "params": [
+              {
+                "name": "meterIdOrSlug",
+                "value": "",
+                "type": "path",
+                "description": "The meter id or slug."
+              }
+            ]
+          },
+          "docs": "Get a meter."
+        },
+        {
+          "info": {
+            "name": "Query meter.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/meters/:meterIdOrSlug/query",
+            "params": [
+              {
+                "name": "meterIdOrSlug",
+                "value": "",
+                "type": "path",
+                "description": "The meter id or slug."
+              }
+            ]
+          },
+          "docs": "Query aggregated usage for a meter across a time range and window, filtered/grouped by subject and groupBy dimensions."
+        },
+        {
+          "info": {
+            "name": "List meter subjects.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/meters/:meterIdOrSlug/subjects",
+            "params": [
+              {
+                "name": "meterIdOrSlug",
+                "value": "",
+                "type": "path",
+                "description": "The meter id or slug."
+              }
+            ]
+          },
+          "docs": "List the subjects that have reported usage to the meter."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Subjects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List subjects.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/subjects"
+          },
+          "docs": "List subjects."
+        },
+        {
+          "info": {
+            "name": "Upsert subjects.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/subjects",
+            "body": {
+              "type": "json",
+              "data": "[{ \"key\": \"customer-1\", \"displayName\": \"Customer One\" }]"
+            }
+          },
+          "docs": "Upsert one or more subjects."
+        },
+        {
+          "info": {
+            "name": "Get subject.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/subjects/:subjectIdOrKey",
+            "params": [
+              {
+                "name": "subjectIdOrKey",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a subject by id or key."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List customers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/customers"
+          },
+          "docs": "List customers."
+        },
+        {
+          "info": {
+            "name": "Create customer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/customers",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"Acme Inc\",\n  \"currency\": \"USD\",\n  \"usageAttribution\": { \"subjectKeys\": [\"customer-1\"] }\n}"
+            }
+          },
+          "docs": "Create a customer."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Features",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List features.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/features"
+          },
+          "docs": "List features."
+        },
+        {
+          "info": {
+            "name": "Create feature.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/features",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"key\": \"api_requests\",\n  \"name\": \"API Requests\",\n  \"meterSlug\": \"api_requests\"\n}"
+            }
+          },
+          "docs": "Create a feature that entitlements attach to."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Entitlements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all entitlements.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/entitlements"
+          },
+          "docs": "List all entitlements."
+        },
+        {
+          "info": {
+            "name": "Create a subject entitlement.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/subjects/:subjectIdOrKey/entitlements",
+            "params": [
+              {
+                "name": "subjectIdOrKey",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"type\": \"metered\",\n  \"featureKey\": \"api_requests\",\n  \"usagePeriod\": { \"interval\": \"MONTH\" },\n  \"issueAfterReset\": 10000\n}"
+            }
+          },
+          "docs": "Create a metered, boolean, or static entitlement for a subject."
+        },
+        {
+          "info": {
+            "name": "Get entitlement value.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/subjects/:subjectIdOrKey/entitlements/:entitlementIdOrFeatureKey/value",
+            "params": [
+              {
+                "name": "subjectIdOrKey",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entitlementIdOrFeatureKey",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get hasAccess plus current balance, usage, and overage for the entitlement."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Grants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List grants.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/grants"
+          },
+          "docs": "List grants."
+        },
+        {
+          "info": {
+            "name": "Create a grant on an entitlement.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/subjects/:subjectIdOrKey/entitlements/:entitlementIdOrFeatureKey/grants",
+            "params": [
+              {
+                "name": "subjectIdOrKey",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entitlementIdOrFeatureKey",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"amount\": 1000,\n  \"priority\": 1,\n  \"expiration\": { \"duration\": \"MONTH\", \"count\": 1 }\n}"
+            }
+          },
+          "docs": "Create a usage grant that tops up a metered entitlement balance."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List notification channels.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/notification/channels"
+          },
+          "docs": "List notification channels."
+        },
+        {
+          "info": {
+            "name": "Create a notification channel.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/notification/channels",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"type\": \"WEBHOOK\",\n  \"name\": \"My Webhook\",\n  \"url\": \"https://example.com/webhooks/openmeter\"\n}"
+            }
+          },
+          "docs": "Create a webhook notification channel."
+        },
+        {
+          "info": {
+            "name": "List notification rules.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/notification/rules"
+          },
+          "docs": "List notification rules."
+        },
+        {
+          "info": {
+            "name": "List notification events.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/notification/events"
+          },
+          "docs": "List delivered notification events with per-channel delivery status."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Billing & Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List invoices.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/billing/invoices"
+          },
+          "docs": "List invoices."
+        },
+        {
+          "info": {
+            "name": "List billing profiles.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/billing/profiles"
+          },
+          "docs": "List billing profiles."
+        },
+        {
+          "info": {
+            "name": "List plans.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/plans"
+          },
+          "docs": "List product-catalog plans."
+        },
+        {
+          "info": {
+            "name": "Create plan.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/plans",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"key\": \"pro\",\n  \"name\": \"Pro\",\n  \"currency\": \"USD\"\n}"
+            }
+          },
+          "docs": "Create a plan."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

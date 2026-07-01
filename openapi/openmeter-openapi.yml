@@ -1,0 +1,1139 @@
+openapi: 3.0.3
+info:
+  title: OpenMeter API
+  description: >-
+    OpenMeter is open-source usage metering and billing for AI and API products.
+    Ingest usage as CloudEvents, define meters that aggregate those events, query
+    usage, manage subjects and customers, gate access with entitlements (metered,
+    boolean, and static), features and grants, react to usage with notifications,
+    and drive billing, plans, and subscriptions with Stripe integration. This is a
+    faithful, representative subset of the real OpenMeter Cloud API
+    (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the
+    canonical spec at https://github.com/openmeterio/openmeter for the full surface.
+  termsOfService: https://openmeter.io/terms
+  contact:
+    name: OpenMeter Support
+    url: https://openmeter.io
+    email: support@openmeter.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+  - url: https://openmeter.cloud
+    description: OpenMeter Cloud
+  - url: http://localhost:8888
+    description: Self-hosted (open source, default)
+security:
+  - BearerAuth: []
+tags:
+  - name: Events
+    description: Ingest usage events as CloudEvents and list ingested events.
+  - name: Meters
+    description: Define meters that aggregate events and query usage.
+  - name: Subjects
+    description: Subjects that usage is metered against.
+  - name: Customers
+    description: Customers used for entitlements, subscriptions, and billing.
+  - name: Entitlements
+    description: Metered, boolean, and static entitlements that gate access.
+  - name: Features
+    description: Features that entitlements are attached to.
+  - name: Grants
+    description: Usage grants that top up metered entitlement balances.
+  - name: Notifications
+    description: Notification channels, rules, and events for usage-driven alerts.
+  - name: Billing
+    description: Billing profiles, invoices, and customer overrides.
+  - name: Plans
+    description: Product catalog plans for subscriptions.
+paths:
+  /api/v1/events:
+    get:
+      operationId: listEvents
+      tags:
+        - Events
+      summary: List ingested events
+      description: Lists ingested events with optional time and subject filters.
+      parameters:
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: List of ingested events.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IngestedEvent'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: ingestEvents
+      tags:
+        - Events
+      summary: Ingest events
+      description: >-
+        Ingests an event or batch of events following the CloudEvents
+        specification. Send a single CloudEvent as
+        application/cloudevents+json or a batch as
+        application/cloudevents-batch+json.
+      requestBody:
+        required: true
+        content:
+          application/cloudevents+json:
+            schema:
+              $ref: '#/components/schemas/CloudEvent'
+          application/cloudevents-batch+json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CloudEvent'
+      responses:
+        '204':
+          description: Events accepted for ingestion.
+        '400':
+          description: Malformed CloudEvent.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/meters:
+    get:
+      operationId: listMeters
+      tags:
+        - Meters
+      summary: List meters
+      responses:
+        '200':
+          description: List of meters.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createMeter
+      tags:
+        - Meters
+      summary: Create meter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meter'
+      responses:
+        '201':
+          description: Meter created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/meters/{meterIdOrSlug}:
+    parameters:
+      - name: meterIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getMeter
+      tags:
+        - Meters
+      summary: Get meter
+      responses:
+        '200':
+          description: A meter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meter'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteMeter
+      tags:
+        - Meters
+      summary: Delete meter
+      responses:
+        '204':
+          description: Meter deleted.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v1/meters/{meterIdOrSlug}/query:
+    get:
+      operationId: queryMeter
+      tags:
+        - Meters
+      summary: Query meter
+      description: Queries usage for a meter, optionally grouped by subject and time window.
+      parameters:
+        - name: meterIdOrSlug
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: windowSize
+          in: query
+          schema:
+            type: string
+            enum: [MINUTE, HOUR, DAY]
+        - name: subject
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+        - name: groupBy
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Meter query result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeterQueryResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/meters/{meterIdOrSlug}/subjects:
+    get:
+      operationId: listMeterSubjects
+      tags:
+        - Meters
+      summary: List meter subjects
+      parameters:
+        - name: meterIdOrSlug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Subjects that have reported usage to the meter.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /api/v1/subjects:
+    get:
+      operationId: listSubjects
+      tags:
+        - Subjects
+      summary: List subjects
+      responses:
+        '200':
+          description: List of subjects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subject'
+    post:
+      operationId: upsertSubject
+      tags:
+        - Subjects
+      summary: Upsert subjects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Subject'
+      responses:
+        '200':
+          description: Subjects upserted.
+  /api/v1/subjects/{subjectIdOrKey}:
+    parameters:
+      - name: subjectIdOrKey
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getSubject
+      tags:
+        - Subjects
+      summary: Get subject
+      responses:
+        '200':
+          description: A subject.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subject'
+    delete:
+      operationId: deleteSubject
+      tags:
+        - Subjects
+      summary: Delete subject
+      responses:
+        '204':
+          description: Subject deleted.
+  /api/v1/customers:
+    get:
+      operationId: listCustomers
+      tags:
+        - Customers
+      summary: List customers
+      responses:
+        '200':
+          description: List of customers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+    post:
+      operationId: createCustomer
+      tags:
+        - Customers
+      summary: Create customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+          description: Customer created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+  /api/v1/features:
+    get:
+      operationId: listFeatures
+      tags:
+        - Features
+      summary: List features
+      responses:
+        '200':
+          description: List of features.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Feature'
+    post:
+      operationId: createFeature
+      tags:
+        - Features
+      summary: Create feature
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Feature'
+      responses:
+        '201':
+          description: Feature created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+  /api/v1/features/{featureId}:
+    parameters:
+      - name: featureId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getFeature
+      tags:
+        - Features
+      summary: Get feature
+      responses:
+        '200':
+          description: A feature.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+    delete:
+      operationId: deleteFeature
+      tags:
+        - Features
+      summary: Delete (archive) feature
+      responses:
+        '204':
+          description: Feature archived.
+  /api/v1/entitlements:
+    get:
+      operationId: listEntitlements
+      tags:
+        - Entitlements
+      summary: List all entitlements
+      responses:
+        '200':
+          description: List of entitlements.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Entitlement'
+  /api/v1/entitlements/{entitlementId}:
+    get:
+      operationId: getEntitlementById
+      tags:
+        - Entitlements
+      summary: Get entitlement by id
+      parameters:
+        - name: entitlementId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An entitlement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entitlement'
+  /api/v1/subjects/{subjectIdOrKey}/entitlements:
+    parameters:
+      - name: subjectIdOrKey
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: listSubjectEntitlements
+      tags:
+        - Entitlements
+      summary: List subject entitlements
+      responses:
+        '200':
+          description: The subject's entitlements.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Entitlement'
+    post:
+      operationId: createEntitlement
+      tags:
+        - Entitlements
+      summary: Create a subject entitlement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Entitlement'
+      responses:
+        '201':
+          description: Entitlement created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entitlement'
+  /api/v1/subjects/{subjectIdOrKey}/entitlements/{entitlementIdOrFeatureKey}/value:
+    get:
+      operationId: getEntitlementValue
+      tags:
+        - Entitlements
+      summary: Get entitlement value
+      description: >-
+        Returns whether the subject has access and, for metered entitlements,
+        the current balance, usage, and overage.
+      parameters:
+        - name: subjectIdOrKey
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: entitlementIdOrFeatureKey
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The entitlement value / balance.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntitlementValue'
+  /api/v1/subjects/{subjectIdOrKey}/entitlements/{entitlementIdOrFeatureKey}/grants:
+    parameters:
+      - name: subjectIdOrKey
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: entitlementIdOrFeatureKey
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: listEntitlementGrants
+      tags:
+        - Grants
+      summary: List subject entitlement grants
+      responses:
+        '200':
+          description: Grants for the entitlement.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Grant'
+    post:
+      operationId: createGrant
+      tags:
+        - Grants
+      summary: Create a grant on an entitlement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Grant'
+      responses:
+        '201':
+          description: Grant created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Grant'
+  /api/v1/grants:
+    get:
+      operationId: listGrants
+      tags:
+        - Grants
+      summary: List grants
+      responses:
+        '200':
+          description: List of grants.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Grant'
+  /api/v1/grants/{grantId}:
+    delete:
+      operationId: voidGrant
+      tags:
+        - Grants
+      summary: Void grant
+      parameters:
+        - name: grantId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Grant voided.
+  /api/v1/notification/channels:
+    get:
+      operationId: listNotificationChannels
+      tags:
+        - Notifications
+      summary: List notification channels
+      responses:
+        '200':
+          description: List of notification channels.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotificationChannel'
+    post:
+      operationId: createNotificationChannel
+      tags:
+        - Notifications
+      summary: Create a notification channel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationChannel'
+      responses:
+        '201':
+          description: Channel created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationChannel'
+  /api/v1/notification/rules:
+    get:
+      operationId: listNotificationRules
+      tags:
+        - Notifications
+      summary: List notification rules
+      responses:
+        '200':
+          description: List of notification rules.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotificationRule'
+    post:
+      operationId: createNotificationRule
+      tags:
+        - Notifications
+      summary: Create a notification rule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationRule'
+      responses:
+        '201':
+          description: Rule created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationRule'
+  /api/v1/notification/events:
+    get:
+      operationId: listNotificationEvents
+      tags:
+        - Notifications
+      summary: List notification events
+      responses:
+        '200':
+          description: List of delivered notification events.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotificationEvent'
+  /api/v1/billing/invoices:
+    get:
+      operationId: listInvoices
+      tags:
+        - Billing
+      summary: List invoices
+      responses:
+        '200':
+          description: List of invoices.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Invoice'
+  /api/v1/billing/profiles:
+    get:
+      operationId: listBillingProfiles
+      tags:
+        - Billing
+      summary: List billing profiles
+      responses:
+        '200':
+          description: List of billing profiles.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BillingProfile'
+  /api/v1/plans:
+    get:
+      operationId: listPlans
+      tags:
+        - Plans
+      summary: List plans
+      responses:
+        '200':
+          description: List of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Plan'
+    post:
+      operationId: createPlan
+      tags:
+        - Plans
+      summary: Create plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plan'
+      responses:
+        '201':
+          description: Plan created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OpenMeter Cloud API token supplied as a Bearer token.
+  responses:
+    Unauthorized:
+      description: Authentication is required or the token is invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+  schemas:
+    CloudEvent:
+      type: object
+      description: A usage event following the CloudEvents 1.0 specification.
+      required:
+        - id
+        - source
+        - type
+        - subject
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the event (used for idempotent deduplication).
+          example: 00001
+        source:
+          type: string
+          description: Identifies the context in which the event happened.
+          example: my-app
+        specversion:
+          type: string
+          default: '1.0'
+        type:
+          type: string
+          description: The CloudEvent type, matched by meters via eventType.
+          example: api-calls
+        subject:
+          type: string
+          description: The subject (e.g. customer or user) the usage is metered against.
+          example: customer-1
+        time:
+          type: string
+          format: date-time
+        data:
+          type: object
+          description: Event payload; meter valueProperty and groupBy JSONPaths read from here.
+          example:
+            method: GET
+            path: /v1/resource
+            tokens: 1024
+    IngestedEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/CloudEvent'
+        ingestedAt:
+          type: string
+          format: date-time
+        validationError:
+          type: string
+          nullable: true
+    Meter:
+      type: object
+      required:
+        - slug
+        - eventType
+        - aggregation
+      properties:
+        id:
+          type: string
+        slug:
+          type: string
+          description: Unique, URL-friendly identifier for the meter.
+          example: api_requests
+        name:
+          type: string
+        description:
+          type: string
+        eventType:
+          type: string
+          description: The CloudEvent type this meter aggregates.
+          example: api-calls
+        aggregation:
+          type: string
+          enum: [SUM, COUNT, UNIQUE_COUNT, AVG, MIN, MAX]
+        valueProperty:
+          type: string
+          description: JSONPath into event data for the metered value (not needed for COUNT).
+          example: $.tokens
+        groupBy:
+          type: object
+          additionalProperties:
+            type: string
+          description: Named JSONPath expressions to group usage by.
+          example:
+            method: $.method
+            path: $.path
+    MeterQueryResult:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        to:
+          type: string
+          format: date-time
+        windowSize:
+          type: string
+          enum: [MINUTE, HOUR, DAY]
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: number
+              windowStart:
+                type: string
+                format: date-time
+              windowEnd:
+                type: string
+                format: date-time
+              subject:
+                type: string
+              groupBy:
+                type: object
+                additionalProperties:
+                  type: string
+    Subject:
+      type: object
+      required:
+        - key
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+          description: Unique subject key that events reference in their subject field.
+          example: customer-1
+        displayName:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        stripeCustomerId:
+          type: string
+          nullable: true
+    Customer:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+        currency:
+          type: string
+          example: USD
+        usageAttribution:
+          type: object
+          properties:
+            subjectKeys:
+              type: array
+              items:
+                type: string
+    Feature:
+      type: object
+      required:
+        - key
+        - name
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+          example: api_requests
+        name:
+          type: string
+        meterSlug:
+          type: string
+          description: Optional meter this feature draws usage from (for metered entitlements).
+          example: api_requests
+        metadata:
+          type: object
+          additionalProperties: true
+    Entitlement:
+      type: object
+      required:
+        - type
+        - featureKey
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: [metered, boolean, static]
+        featureKey:
+          type: string
+          example: api_requests
+        subjectKey:
+          type: string
+          example: customer-1
+        usagePeriod:
+          type: object
+          properties:
+            interval:
+              type: string
+              enum: [DAY, WEEK, MONTH, YEAR]
+            anchor:
+              type: string
+              format: date-time
+        issueAfterReset:
+          type: number
+          description: Amount of usage granted at the start of each usage period.
+    EntitlementValue:
+      type: object
+      properties:
+        hasAccess:
+          type: boolean
+        balance:
+          type: number
+        usage:
+          type: number
+        overage:
+          type: number
+    Grant:
+      type: object
+      required:
+        - amount
+      properties:
+        id:
+          type: string
+        amount:
+          type: number
+          description: Amount of usage to grant to the entitlement balance.
+        priority:
+          type: integer
+          description: Lower priority grants are burned down first.
+          default: 1
+        effectiveAt:
+          type: string
+          format: date-time
+        expiration:
+          type: object
+          properties:
+            duration:
+              type: string
+              enum: [HOUR, DAY, WEEK, MONTH, YEAR]
+            count:
+              type: integer
+        recurrence:
+          type: object
+          properties:
+            interval:
+              type: string
+              enum: [DAY, WEEK, MONTH, YEAR]
+            anchor:
+              type: string
+              format: date-time
+    NotificationChannel:
+      type: object
+      required:
+        - type
+        - name
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: [WEBHOOK]
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+          description: Webhook URL that notification events are delivered to.
+        signingSecret:
+          type: string
+          description: Secret used to sign webhook payloads (Svix-compatible).
+        disabled:
+          type: boolean
+          default: false
+    NotificationRule:
+      type: object
+      required:
+        - type
+        - name
+        - channels
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: [entitlements.balance.threshold]
+        name:
+          type: string
+        channels:
+          type: array
+          items:
+            type: string
+          description: Channel ids that fire when the rule matches.
+        thresholds:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: number
+              type:
+                type: string
+                enum: [PERCENT, NUMBER]
+        features:
+          type: array
+          items:
+            type: string
+    NotificationEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        rule:
+          $ref: '#/components/schemas/NotificationRule'
+        deliveryStatus:
+          type: array
+          items:
+            type: object
+            properties:
+              channelId:
+                type: string
+              state:
+                type: string
+                enum: [SUCCESS, FAILED, SENDING, PENDING]
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: string
+        number:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        status:
+          type: string
+          enum: [draft, issued, paid, void]
+        currency:
+          type: string
+        total:
+          type: string
+    BillingProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        default:
+          type: boolean
+        supplier:
+          type: object
+          additionalProperties: true
+        workflow:
+          type: object
+          additionalProperties: true
+    Plan:
+      type: object
+      required:
+        - key
+        - name
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+        currency:
+          type: string
+          example: USD
+        phases:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              name:
+                type: string
+              rateCards:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+    Problem:
+      type: object
+      description: RFC 7807 problem details.
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
