@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/openmeter-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: OpenMeter Cloud API token supplied as a Bearer token.
+  sources:
+  - openapi/openmeter-openapi.yml

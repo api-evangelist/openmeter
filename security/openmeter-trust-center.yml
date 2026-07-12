@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://openmeter.io/security
+url: https://openmeter.io/security
+certifications:
+- SOC 2
+evidence:
+- source: https://openmeter.io/security
+  keywords:
+  - soc 2
+  - soc2
+  - trust center

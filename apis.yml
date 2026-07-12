@@ -211,6 +211,12 @@ apis:
     billing profiles, and invoices - with Stripe-backed invoicing and payment
     collection.
 common:
+- type: TrustCenter
+  url: security/openmeter-trust-center.yml
+- type: DomainSecurity
+  url: security/openmeter-domain-security.yml
+- type: Authentication
+  url: authentication/openmeter-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/openmeterio
 - type: LinkedIn
