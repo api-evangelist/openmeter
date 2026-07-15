@@ -211,6 +211,8 @@ apis:
     billing profiles, and invoices - with Stripe-backed invoicing and payment
     collection.
 common:
+- type: AgenticAccess
+  url: agentic-access/openmeter-agentic-access.yml
 - type: TrustCenter
   url: security/openmeter-trust-center.yml
 - type: DomainSecurity
