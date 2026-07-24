@@ -1,0 +1,198 @@
+openapi: 3.0.3
+info:
+  title: OpenMeter Billing Notifications API
+  description: OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.
+  termsOfService: https://openmeter.io/terms
+  contact:
+    name: OpenMeter Support
+    url: https://openmeter.io
+    email: support@openmeter.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+- url: https://openmeter.cloud
+  description: OpenMeter Cloud
+- url: http://localhost:8888
+  description: Self-hosted (open source, default)
+security:
+- BearerAuth: []
+tags:
+- name: Notifications
+  description: Notification channels, rules, and events for usage-driven alerts.
+paths:
+  /api/v1/notification/channels:
+    get:
+      operationId: listNotificationChannels
+      tags:
+      - Notifications
+      summary: List notification channels
+      responses:
+        '200':
+          description: List of notification channels.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotificationChannel'
+    post:
+      operationId: createNotificationChannel
+      tags:
+      - Notifications
+      summary: Create a notification channel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationChannel'
+      responses:
+        '201':
+          description: Channel created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationChannel'
+  /api/v1/notification/rules:
+    get:
+      operationId: listNotificationRules
+      tags:
+      - Notifications
+      summary: List notification rules
+      responses:
+        '200':
+          description: List of notification rules.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotificationRule'
+    post:
+      operationId: createNotificationRule
+      tags:
+      - Notifications
+      summary: Create a notification rule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationRule'
+      responses:
+        '201':
+          description: Rule created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationRule'
+  /api/v1/notification/events:
+    get:
+      operationId: listNotificationEvents
+      tags:
+      - Notifications
+      summary: List notification events
+      responses:
+        '200':
+          description: List of delivered notification events.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotificationEvent'
+components:
+  schemas:
+    NotificationEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        rule:
+          $ref: '#/components/schemas/NotificationRule'
+        deliveryStatus:
+          type: array
+          items:
+            type: object
+            properties:
+              channelId:
+                type: string
+              state:
+                type: string
+                enum:
+                - SUCCESS
+                - FAILED
+                - SENDING
+                - PENDING
+    NotificationChannel:
+      type: object
+      required:
+      - type
+      - name
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - WEBHOOK
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+          description: Webhook URL that notification events are delivered to.
+        signingSecret:
+          type: string
+          description: Secret used to sign webhook payloads (Svix-compatible).
+        disabled:
+          type: boolean
+          default: false
+    NotificationRule:
+      type: object
+      required:
+      - type
+      - name
+      - channels
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - entitlements.balance.threshold
+        name:
+          type: string
+        channels:
+          type: array
+          items:
+            type: string
+          description: Channel ids that fire when the rule matches.
+        thresholds:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: number
+              type:
+                type: string
+                enum:
+                - PERCENT
+                - NUMBER
+        features:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OpenMeter Cloud API token supplied as a Bearer token.

@@ -1,0 +1,108 @@
+openapi: 3.0.3
+info:
+  title: OpenMeter Billing Subjects API
+  description: OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.
+  termsOfService: https://openmeter.io/terms
+  contact:
+    name: OpenMeter Support
+    url: https://openmeter.io
+    email: support@openmeter.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+- url: https://openmeter.cloud
+  description: OpenMeter Cloud
+- url: http://localhost:8888
+  description: Self-hosted (open source, default)
+security:
+- BearerAuth: []
+tags:
+- name: Subjects
+  description: Subjects that usage is metered against.
+paths:
+  /api/v1/subjects:
+    get:
+      operationId: listSubjects
+      tags:
+      - Subjects
+      summary: List subjects
+      responses:
+        '200':
+          description: List of subjects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subject'
+    post:
+      operationId: upsertSubject
+      tags:
+      - Subjects
+      summary: Upsert subjects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Subject'
+      responses:
+        '200':
+          description: Subjects upserted.
+  /api/v1/subjects/{subjectIdOrKey}:
+    parameters:
+    - name: subjectIdOrKey
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getSubject
+      tags:
+      - Subjects
+      summary: Get subject
+      responses:
+        '200':
+          description: A subject.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subject'
+    delete:
+      operationId: deleteSubject
+      tags:
+      - Subjects
+      summary: Delete subject
+      responses:
+        '204':
+          description: Subject deleted.
+components:
+  schemas:
+    Subject:
+      type: object
+      required:
+      - key
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+          description: Unique subject key that events reference in their subject field.
+          example: customer-1
+        displayName:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        stripeCustomerId:
+          type: string
+          nullable: true
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OpenMeter Cloud API token supplied as a Bearer token.

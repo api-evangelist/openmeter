@@ -1,0 +1,273 @@
+openapi: 3.0.3
+info:
+  title: OpenMeter Billing Meters API
+  description: OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.
+  termsOfService: https://openmeter.io/terms
+  contact:
+    name: OpenMeter Support
+    url: https://openmeter.io
+    email: support@openmeter.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+- url: https://openmeter.cloud
+  description: OpenMeter Cloud
+- url: http://localhost:8888
+  description: Self-hosted (open source, default)
+security:
+- BearerAuth: []
+tags:
+- name: Meters
+  description: Define meters that aggregate events and query usage.
+paths:
+  /api/v1/meters:
+    get:
+      operationId: listMeters
+      tags:
+      - Meters
+      summary: List meters
+      responses:
+        '200':
+          description: List of meters.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createMeter
+      tags:
+      - Meters
+      summary: Create meter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meter'
+      responses:
+        '201':
+          description: Meter created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/meters/{meterIdOrSlug}:
+    parameters:
+    - name: meterIdOrSlug
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getMeter
+      tags:
+      - Meters
+      summary: Get meter
+      responses:
+        '200':
+          description: A meter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meter'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteMeter
+      tags:
+      - Meters
+      summary: Delete meter
+      responses:
+        '204':
+          description: Meter deleted.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v1/meters/{meterIdOrSlug}/query:
+    get:
+      operationId: queryMeter
+      tags:
+      - Meters
+      summary: Query meter
+      description: Queries usage for a meter, optionally grouped by subject and time window.
+      parameters:
+      - name: meterIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: from
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: windowSize
+        in: query
+        schema:
+          type: string
+          enum:
+          - MINUTE
+          - HOUR
+          - DAY
+      - name: subject
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: groupBy
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Meter query result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeterQueryResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/meters/{meterIdOrSlug}/subjects:
+    get:
+      operationId: listMeterSubjects
+      tags:
+      - Meters
+      summary: List meter subjects
+      parameters:
+      - name: meterIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Subjects that have reported usage to the meter.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+components:
+  schemas:
+    MeterQueryResult:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        to:
+          type: string
+          format: date-time
+        windowSize:
+          type: string
+          enum:
+          - MINUTE
+          - HOUR
+          - DAY
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: number
+              windowStart:
+                type: string
+                format: date-time
+              windowEnd:
+                type: string
+                format: date-time
+              subject:
+                type: string
+              groupBy:
+                type: object
+                additionalProperties:
+                  type: string
+    Meter:
+      type: object
+      required:
+      - slug
+      - eventType
+      - aggregation
+      properties:
+        id:
+          type: string
+        slug:
+          type: string
+          description: Unique, URL-friendly identifier for the meter.
+          example: api_requests
+        name:
+          type: string
+        description:
+          type: string
+        eventType:
+          type: string
+          description: The CloudEvent type this meter aggregates.
+          example: api-calls
+        aggregation:
+          type: string
+          enum:
+          - SUM
+          - COUNT
+          - UNIQUE_COUNT
+          - AVG
+          - MIN
+          - MAX
+        valueProperty:
+          type: string
+          description: JSONPath into event data for the metered value (not needed for COUNT).
+          example: $.tokens
+        groupBy:
+          type: object
+          additionalProperties:
+            type: string
+          description: Named JSONPath expressions to group usage by.
+          example:
+            method: $.method
+            path: $.path
+    Problem:
+      type: object
+      description: RFC 7807 problem details.
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+  responses:
+    Unauthorized:
+      description: Authentication is required or the token is invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OpenMeter Cloud API token supplied as a Bearer token.

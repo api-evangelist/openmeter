@@ -1,0 +1,157 @@
+openapi: 3.0.3
+info:
+  title: OpenMeter Billing Events API
+  description: OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.
+  termsOfService: https://openmeter.io/terms
+  contact:
+    name: OpenMeter Support
+    url: https://openmeter.io
+    email: support@openmeter.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+- url: https://openmeter.cloud
+  description: OpenMeter Cloud
+- url: http://localhost:8888
+  description: Self-hosted (open source, default)
+security:
+- BearerAuth: []
+tags:
+- name: Events
+  description: Ingest usage events as CloudEvents and list ingested events.
+paths:
+  /api/v1/events:
+    get:
+      operationId: listEvents
+      tags:
+      - Events
+      summary: List ingested events
+      description: Lists ingested events with optional time and subject filters.
+      parameters:
+      - name: from
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 100
+      responses:
+        '200':
+          description: List of ingested events.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IngestedEvent'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: ingestEvents
+      tags:
+      - Events
+      summary: Ingest events
+      description: Ingests an event or batch of events following the CloudEvents specification. Send a single CloudEvent as application/cloudevents+json or a batch as application/cloudevents-batch+json.
+      requestBody:
+        required: true
+        content:
+          application/cloudevents+json:
+            schema:
+              $ref: '#/components/schemas/CloudEvent'
+          application/cloudevents-batch+json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CloudEvent'
+      responses:
+        '204':
+          description: Events accepted for ingestion.
+        '400':
+          description: Malformed CloudEvent.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Problem:
+      type: object
+      description: RFC 7807 problem details.
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+    IngestedEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/CloudEvent'
+        ingestedAt:
+          type: string
+          format: date-time
+        validationError:
+          type: string
+          nullable: true
+    CloudEvent:
+      type: object
+      description: A usage event following the CloudEvents 1.0 specification.
+      required:
+      - id
+      - source
+      - type
+      - subject
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the event (used for idempotent deduplication).
+          example: 1
+        source:
+          type: string
+          description: Identifies the context in which the event happened.
+          example: my-app
+        specversion:
+          type: string
+          default: '1.0'
+        type:
+          type: string
+          description: The CloudEvent type, matched by meters via eventType.
+          example: api-calls
+        subject:
+          type: string
+          description: The subject (e.g. customer or user) the usage is metered against.
+          example: customer-1
+        time:
+          type: string
+          format: date-time
+        data:
+          type: object
+          description: Event payload; meter valueProperty and groupBy JSONPaths read from here.
+          example:
+            method: GET
+            path: /v1/resource
+            tokens: 1024
+  responses:
+    Unauthorized:
+      description: Authentication is required or the token is invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OpenMeter Cloud API token supplied as a Bearer token.

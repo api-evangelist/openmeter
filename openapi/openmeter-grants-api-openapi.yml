@@ -1,0 +1,148 @@
+openapi: 3.0.3
+info:
+  title: OpenMeter Billing Grants API
+  description: OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.
+  termsOfService: https://openmeter.io/terms
+  contact:
+    name: OpenMeter Support
+    url: https://openmeter.io
+    email: support@openmeter.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+- url: https://openmeter.cloud
+  description: OpenMeter Cloud
+- url: http://localhost:8888
+  description: Self-hosted (open source, default)
+security:
+- BearerAuth: []
+tags:
+- name: Grants
+  description: Usage grants that top up metered entitlement balances.
+paths:
+  /api/v1/subjects/{subjectIdOrKey}/entitlements/{entitlementIdOrFeatureKey}/grants:
+    parameters:
+    - name: subjectIdOrKey
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: entitlementIdOrFeatureKey
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: listEntitlementGrants
+      tags:
+      - Grants
+      summary: List subject entitlement grants
+      responses:
+        '200':
+          description: Grants for the entitlement.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Grant'
+    post:
+      operationId: createGrant
+      tags:
+      - Grants
+      summary: Create a grant on an entitlement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Grant'
+      responses:
+        '201':
+          description: Grant created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Grant'
+  /api/v1/grants:
+    get:
+      operationId: listGrants
+      tags:
+      - Grants
+      summary: List grants
+      responses:
+        '200':
+          description: List of grants.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Grant'
+  /api/v1/grants/{grantId}:
+    delete:
+      operationId: voidGrant
+      tags:
+      - Grants
+      summary: Void grant
+      parameters:
+      - name: grantId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Grant voided.
+components:
+  schemas:
+    Grant:
+      type: object
+      required:
+      - amount
+      properties:
+        id:
+          type: string
+        amount:
+          type: number
+          description: Amount of usage to grant to the entitlement balance.
+        priority:
+          type: integer
+          description: Lower priority grants are burned down first.
+          default: 1
+        effectiveAt:
+          type: string
+          format: date-time
+        expiration:
+          type: object
+          properties:
+            duration:
+              type: string
+              enum:
+              - HOUR
+              - DAY
+              - WEEK
+              - MONTH
+              - YEAR
+            count:
+              type: integer
+        recurrence:
+          type: object
+          properties:
+            interval:
+              type: string
+              enum:
+              - DAY
+              - WEEK
+              - MONTH
+              - YEAR
+            anchor:
+              type: string
+              format: date-time
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OpenMeter Cloud API token supplied as a Bearer token.

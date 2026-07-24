@@ -1,0 +1,111 @@
+openapi: 3.0.3
+info:
+  title: OpenMeter Billing Features API
+  description: OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.
+  termsOfService: https://openmeter.io/terms
+  contact:
+    name: OpenMeter Support
+    url: https://openmeter.io
+    email: support@openmeter.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+- url: https://openmeter.cloud
+  description: OpenMeter Cloud
+- url: http://localhost:8888
+  description: Self-hosted (open source, default)
+security:
+- BearerAuth: []
+tags:
+- name: Features
+  description: Features that entitlements are attached to.
+paths:
+  /api/v1/features:
+    get:
+      operationId: listFeatures
+      tags:
+      - Features
+      summary: List features
+      responses:
+        '200':
+          description: List of features.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Feature'
+    post:
+      operationId: createFeature
+      tags:
+      - Features
+      summary: Create feature
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Feature'
+      responses:
+        '201':
+          description: Feature created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+  /api/v1/features/{featureId}:
+    parameters:
+    - name: featureId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getFeature
+      tags:
+      - Features
+      summary: Get feature
+      responses:
+        '200':
+          description: A feature.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+    delete:
+      operationId: deleteFeature
+      tags:
+      - Features
+      summary: Delete (archive) feature
+      responses:
+        '204':
+          description: Feature archived.
+components:
+  schemas:
+    Feature:
+      type: object
+      required:
+      - key
+      - name
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+          example: api_requests
+        name:
+          type: string
+        meterSlug:
+          type: string
+          description: Optional meter this feature draws usage from (for metered entitlements).
+          example: api_requests
+        metadata:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OpenMeter Cloud API token supplied as a Bearer token.

@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: OpenMeter Billing API
+  description: OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.
+  termsOfService: https://openmeter.io/terms
+  contact:
+    name: OpenMeter Support
+    url: https://openmeter.io
+    email: support@openmeter.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+- url: https://openmeter.cloud
+  description: OpenMeter Cloud
+- url: http://localhost:8888
+  description: Self-hosted (open source, default)
+security:
+- BearerAuth: []
+tags:
+- name: Billing
+  description: Billing profiles, invoices, and customer overrides.
+paths:
+  /api/v1/billing/invoices:
+    get:
+      operationId: listInvoices
+      tags:
+      - Billing
+      summary: List invoices
+      responses:
+        '200':
+          description: List of invoices.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Invoice'
+  /api/v1/billing/profiles:
+    get:
+      operationId: listBillingProfiles
+      tags:
+      - Billing
+      summary: List billing profiles
+      responses:
+        '200':
+          description: List of billing profiles.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BillingProfile'
+components:
+  schemas:
+    Customer:
+      type: object
+      required:
+      - name
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+        currency:
+          type: string
+          example: USD
+        usageAttribution:
+          type: object
+          properties:
+            subjectKeys:
+              type: array
+              items:
+                type: string
+    BillingProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        default:
+          type: boolean
+        supplier:
+          type: object
+          additionalProperties: true
+        workflow:
+          type: object
+          additionalProperties: true
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: string
+        number:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        status:
+          type: string
+          enum:
+          - draft
+          - issued
+          - paid
+          - void
+        currency:
+          type: string
+        total:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OpenMeter Cloud API token supplied as a Bearer token.

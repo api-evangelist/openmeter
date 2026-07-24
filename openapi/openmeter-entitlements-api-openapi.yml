@@ -1,0 +1,176 @@
+openapi: 3.0.3
+info:
+  title: OpenMeter Billing Entitlements API
+  description: OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.
+  termsOfService: https://openmeter.io/terms
+  contact:
+    name: OpenMeter Support
+    url: https://openmeter.io
+    email: support@openmeter.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+- url: https://openmeter.cloud
+  description: OpenMeter Cloud
+- url: http://localhost:8888
+  description: Self-hosted (open source, default)
+security:
+- BearerAuth: []
+tags:
+- name: Entitlements
+  description: Metered, boolean, and static entitlements that gate access.
+paths:
+  /api/v1/entitlements:
+    get:
+      operationId: listEntitlements
+      tags:
+      - Entitlements
+      summary: List all entitlements
+      responses:
+        '200':
+          description: List of entitlements.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Entitlement'
+  /api/v1/entitlements/{entitlementId}:
+    get:
+      operationId: getEntitlementById
+      tags:
+      - Entitlements
+      summary: Get entitlement by id
+      parameters:
+      - name: entitlementId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: An entitlement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entitlement'
+  /api/v1/subjects/{subjectIdOrKey}/entitlements:
+    parameters:
+    - name: subjectIdOrKey
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: listSubjectEntitlements
+      tags:
+      - Entitlements
+      summary: List subject entitlements
+      responses:
+        '200':
+          description: The subject's entitlements.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Entitlement'
+    post:
+      operationId: createEntitlement
+      tags:
+      - Entitlements
+      summary: Create a subject entitlement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Entitlement'
+      responses:
+        '201':
+          description: Entitlement created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entitlement'
+  /api/v1/subjects/{subjectIdOrKey}/entitlements/{entitlementIdOrFeatureKey}/value:
+    get:
+      operationId: getEntitlementValue
+      tags:
+      - Entitlements
+      summary: Get entitlement value
+      description: Returns whether the subject has access and, for metered entitlements, the current balance, usage, and overage.
+      parameters:
+      - name: subjectIdOrKey
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: entitlementIdOrFeatureKey
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The entitlement value / balance.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntitlementValue'
+components:
+  schemas:
+    EntitlementValue:
+      type: object
+      properties:
+        hasAccess:
+          type: boolean
+        balance:
+          type: number
+        usage:
+          type: number
+        overage:
+          type: number
+    Entitlement:
+      type: object
+      required:
+      - type
+      - featureKey
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - metered
+          - boolean
+          - static
+        featureKey:
+          type: string
+          example: api_requests
+        subjectKey:
+          type: string
+          example: customer-1
+        usagePeriod:
+          type: object
+          properties:
+            interval:
+              type: string
+              enum:
+              - DAY
+              - WEEK
+              - MONTH
+              - YEAR
+            anchor:
+              type: string
+              format: date-time
+        issueAfterReset:
+          type: number
+          description: Amount of usage granted at the start of each usage period.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OpenMeter Cloud API token supplied as a Bearer token.
