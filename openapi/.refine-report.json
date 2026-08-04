@@ -1,0 +1,32 @@
+{
+  "provider": "openmeter",
+  "sources": [
+    "openmeter-billing-api-openapi.yml",
+    "openmeter-customers-api-openapi.yml",
+    "openmeter-entitlements-api-openapi.yml",
+    "openmeter-events-api-openapi.yml",
+    "openmeter-features-api-openapi.yml",
+    "openmeter-grants-api-openapi.yml",
+    "openmeter-meters-api-openapi.yml",
+    "openmeter-notifications-api-openapi.yml",
+    "openmeter-plans-api-openapi.yml",
+    "openmeter-subjects-api-openapi.yml"
+  ],
+  "outputs": [
+    "openmeter-billing-api-openapi.yml",
+    "openmeter-customers-api-openapi.yml",
+    "openmeter-entitlements-api-openapi.yml",
+    "openmeter-events-api-openapi.yml",
+    "openmeter-features-api-openapi.yml",
+    "openmeter-grants-api-openapi.yml",
+    "openmeter-meters-api-openapi.yml",
+    "openmeter-notifications-api-openapi.yml",
+    "openmeter-plans-api-openapi.yml",
+    "openmeter-subjects-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
