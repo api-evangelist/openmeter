@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenMeter Billing Subjects API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subjects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List subjects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/subjects"
+          },
+          "docs": "List subjects"
+        },
+        {
+          "info": {
+            "name": "Upsert subjects",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/subjects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upsert subjects"
+        },
+        {
+          "info": {
+            "name": "Get subject",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/subjects/:subjectIdOrKey",
+            "params": [
+              {
+                "name": "subjectIdOrKey",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get subject"
+        },
+        {
+          "info": {
+            "name": "Delete subject",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://openmeter.cloud/api/v1/subjects/:subjectIdOrKey",
+            "params": [
+              {
+                "name": "subjectIdOrKey",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete subject"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

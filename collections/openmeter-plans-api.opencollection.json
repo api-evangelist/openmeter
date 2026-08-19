@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenMeter Billing Plans API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/plans"
+          },
+          "docs": "List plans"
+        },
+        {
+          "info": {
+            "name": "Create plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/plans",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create plan"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

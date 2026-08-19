@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenMeter Billing Notifications API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List notification channels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/notification/channels"
+          },
+          "docs": "List notification channels"
+        },
+        {
+          "info": {
+            "name": "Create a notification channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/notification/channels",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a notification channel"
+        },
+        {
+          "info": {
+            "name": "List notification rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/notification/rules"
+          },
+          "docs": "List notification rules"
+        },
+        {
+          "info": {
+            "name": "Create a notification rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/notification/rules",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a notification rule"
+        },
+        {
+          "info": {
+            "name": "List notification events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/notification/events"
+          },
+          "docs": "List notification events"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

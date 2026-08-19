@@ -1,0 +1,462 @@
+{
+  "item": [
+    {
+      "id": "7b5b44dd-a595-4d86-9b41-1c0e104b064e",
+      "name": "Grants",
+      "description": {
+        "content": "Usage grants that top up metered entitlement balances.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a85e6d33-44e5-4ca2-a68a-153c65a2e344",
+          "name": "List subject entitlement grants",
+          "request": {
+            "name": "List subject entitlement grants",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "subjects",
+                ":subjectIdOrKey",
+                "entitlements",
+                ":entitlementIdOrFeatureKey",
+                "grants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subjectIdOrKey",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entitlementIdOrFeatureKey",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "adb2612a-2c8c-4359-9119-3a7039ca8039",
+              "name": "Grants for the entitlement.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "subjects",
+                    ":subjectIdOrKey",
+                    "entitlements",
+                    ":entitlementIdOrFeatureKey",
+                    "grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subjectIdOrKey",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entitlementIdOrFeatureKey",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"amount\": 2048.2912549230214,\n    \"id\": \"string\",\n    \"priority\": 1,\n    \"effectiveAt\": \"1991-01-24T11:34:35.085Z\",\n    \"expiration\": {\n      \"duration\": \"YEAR\",\n      \"count\": 9004\n    },\n    \"recurrence\": {\n      \"interval\": \"DAY\",\n      \"anchor\": \"1977-03-31T03:34:12.519Z\"\n    }\n  },\n  {\n    \"amount\": 2977.3120787105136,\n    \"id\": \"string\",\n    \"priority\": 1,\n    \"effectiveAt\": \"1975-01-06T11:09:24.776Z\",\n    \"expiration\": {\n      \"duration\": \"MONTH\",\n      \"count\": 427\n    },\n    \"recurrence\": {\n      \"interval\": \"YEAR\",\n      \"anchor\": \"1953-01-18T10:27:22.145Z\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "abc145ee-7747-4c3d-b716-200b0b9decfe",
+          "name": "Create a grant on an entitlement",
+          "request": {
+            "name": "Create a grant on an entitlement",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "subjects",
+                ":subjectIdOrKey",
+                "entitlements",
+                ":entitlementIdOrFeatureKey",
+                "grants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subjectIdOrKey",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entitlementIdOrFeatureKey",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"priority\": 1,\n  \"effectiveAt\": \"<dateTime>\",\n  \"expiration\": {\n    \"duration\": \"<string>\",\n    \"count\": \"<integer>\"\n  },\n  \"recurrence\": {\n    \"interval\": \"<string>\",\n    \"anchor\": \"<dateTime>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2e60089b-2cd8-4504-b30a-2e785dcb49cd",
+              "name": "Grant created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "subjects",
+                    ":subjectIdOrKey",
+                    "entitlements",
+                    ":entitlementIdOrFeatureKey",
+                    "grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subjectIdOrKey",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entitlementIdOrFeatureKey",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"priority\": 1,\n  \"effectiveAt\": \"<dateTime>\",\n  \"expiration\": {\n    \"duration\": \"<string>\",\n    \"count\": \"<integer>\"\n  },\n  \"recurrence\": {\n    \"interval\": \"<string>\",\n    \"anchor\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"priority\": 1,\n  \"effectiveAt\": \"<dateTime>\",\n  \"expiration\": {\n    \"duration\": \"<string>\",\n    \"count\": \"<integer>\"\n  },\n  \"recurrence\": {\n    \"interval\": \"<string>\",\n    \"anchor\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1fa0650a-a70e-4d5b-850a-a0930ad937fd",
+          "name": "List grants",
+          "request": {
+            "name": "List grants",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "grants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d1e48bc-8504-4a31-8df8-3f033571375d",
+              "name": "List of grants.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"amount\": \"<number>\",\n    \"id\": \"<string>\",\n    \"priority\": 1,\n    \"effectiveAt\": \"<dateTime>\",\n    \"expiration\": {\n      \"duration\": \"<string>\",\n      \"count\": \"<integer>\"\n    },\n    \"recurrence\": {\n      \"interval\": \"<string>\",\n      \"anchor\": \"<dateTime>\"\n    }\n  },\n  {\n    \"amount\": \"<number>\",\n    \"id\": \"<string>\",\n    \"priority\": 1,\n    \"effectiveAt\": \"<dateTime>\",\n    \"expiration\": {\n      \"duration\": \"<string>\",\n      \"count\": \"<integer>\"\n    },\n    \"recurrence\": {\n      \"interval\": \"<string>\",\n      \"anchor\": \"<dateTime>\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df48eae5-ecee-4446-a37e-e4f7642b46b4",
+          "name": "Void grant",
+          "request": {
+            "name": "Void grant",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "grants",
+                ":grantId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "grantId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8cd8128e-2bc3-4395-bad7-dffe973dc518",
+              "name": "Grant voided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "grants",
+                    ":grantId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "grantId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://openmeter.cloud",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "22f47735-dbc1-4305-944c-c35cf8f78f9d",
+    "name": "OpenMeter Billing Grants API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.\n\nContact Support:\n Name: OpenMeter Support\n Email: support@openmeter.io",
+      "type": "text/plain"
+    }
+  }
+}

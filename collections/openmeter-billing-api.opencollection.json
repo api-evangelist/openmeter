@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenMeter Billing API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Billing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/billing/invoices"
+          },
+          "docs": "List invoices"
+        },
+        {
+          "info": {
+            "name": "List billing profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/billing/profiles"
+          },
+          "docs": "List billing profiles"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenMeter Billing Grants API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Grants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List subject entitlement grants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/subjects/:subjectIdOrKey/entitlements/:entitlementIdOrFeatureKey/grants",
+            "params": [
+              {
+                "name": "subjectIdOrKey",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entitlementIdOrFeatureKey",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List subject entitlement grants"
+        },
+        {
+          "info": {
+            "name": "Create a grant on an entitlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/subjects/:subjectIdOrKey/entitlements/:entitlementIdOrFeatureKey/grants",
+            "params": [
+              {
+                "name": "subjectIdOrKey",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entitlementIdOrFeatureKey",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a grant on an entitlement"
+        },
+        {
+          "info": {
+            "name": "List grants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/grants"
+          },
+          "docs": "List grants"
+        },
+        {
+          "info": {
+            "name": "Void grant",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://openmeter.cloud/api/v1/grants/:grantId",
+            "params": [
+              {
+                "name": "grantId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Void grant"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

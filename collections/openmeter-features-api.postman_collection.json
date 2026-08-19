@@ -1,0 +1,404 @@
+{
+  "item": [
+    {
+      "id": "32bd2bea-493e-4257-9b9b-15190a828ba8",
+      "name": "Features",
+      "description": {
+        "content": "Features that entitlements are attached to.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dde89d6e-e8f7-4007-820b-624369b5d822",
+          "name": "List features",
+          "request": {
+            "name": "List features",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "features"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "413f2053-2076-4528-a943-32dd00e4ddc1",
+              "name": "List of features.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "features"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key\": \"api_requests\",\n    \"name\": \"string\",\n    \"id\": \"string\",\n    \"meterSlug\": \"api_requests\",\n    \"metadata\": {\n      \"key_0\": \"string\"\n    }\n  },\n  {\n    \"key\": \"api_requests\",\n    \"name\": \"string\",\n    \"id\": \"string\",\n    \"meterSlug\": \"api_requests\",\n    \"metadata\": {\n      \"key_0\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dcdc2469-f083-4954-993a-ac641929863e",
+          "name": "Create feature",
+          "request": {
+            "name": "Create feature",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "features"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"meterSlug\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"string\",\n    \"key_1\": 7801.698425878078\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "08660f67-224e-4e94-9527-c5aa63c7d910",
+              "name": "Feature created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "features"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"api_requests\",\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"meterSlug\": \"api_requests\",\n  \"metadata\": {\n    \"key_0\": 7418,\n    \"key_1\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key\": \"api_requests\",\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"meterSlug\": \"api_requests\",\n  \"metadata\": {\n    \"key_0\": 7418,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c66a0868-225e-46cc-9a0f-d05dd96ab5f2",
+          "name": "Get feature",
+          "request": {
+            "name": "Get feature",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "features",
+                ":featureId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "featureId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4a793367-58d9-4c48-8c2e-755817ed5629",
+              "name": "A feature.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "features",
+                    ":featureId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "featureId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key\": \"api_requests\",\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"meterSlug\": \"api_requests\",\n  \"metadata\": {\n    \"key_0\": 7418,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "45afa2c9-1a8e-4689-90f5-2bbd4054c517",
+          "name": "Delete (archive) feature",
+          "request": {
+            "name": "Delete (archive) feature",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "features",
+                ":featureId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "featureId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56482057-656e-4a4a-b8a9-5e45a7a3f506",
+              "name": "Feature archived.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "features",
+                    ":featureId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "featureId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://openmeter.cloud",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7e3e8632-e81d-4645-8763-2926b408740c",
+    "name": "OpenMeter Billing Features API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.\n\nContact Support:\n Name: OpenMeter Support\n Email: support@openmeter.io",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenMeter Billing Features API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Features",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List features",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/features"
+          },
+          "docs": "List features"
+        },
+        {
+          "info": {
+            "name": "Create feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/features",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create feature"
+        },
+        {
+          "info": {
+            "name": "Get feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/features/:featureId",
+            "params": [
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get feature"
+        },
+        {
+          "info": {
+            "name": "Delete (archive) feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://openmeter.cloud/api/v1/features/:featureId",
+            "params": [
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete (archive) feature"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,411 @@
+{
+  "item": [
+    {
+      "id": "18c29b75-18ad-4398-92de-560e02a49eb0",
+      "name": "Events",
+      "description": {
+        "content": "Ingest usage events as CloudEvents and list ingested events.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "90ffc7f6-894e-4209-b446-1dda158fd30b",
+          "name": "List ingested events",
+          "request": {
+            "name": "List ingested events",
+            "description": {
+              "content": "Lists ingested events with optional time and subject filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6a6b2ee4-86f7-4d91-b8cf-961a8d9498d0",
+              "name": "List of ingested events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"event\": {\n      \"id\": \"string\",\n      \"source\": \"my-app\",\n      \"type\": \"api-calls\",\n      \"subject\": \"customer-1\",\n      \"specversion\": \"1.0\",\n      \"time\": \"1981-06-28T11:47:12.857Z\",\n      \"data\": {\n        \"method\": \"GET\",\n        \"path\": \"/v1/resource\",\n        \"tokens\": 1024\n      }\n    },\n    \"ingestedAt\": \"2024-02-05T14:50:40.089Z\",\n    \"validationError\": \"string\"\n  },\n  {\n    \"event\": {\n      \"id\": \"string\",\n      \"source\": \"my-app\",\n      \"type\": \"api-calls\",\n      \"subject\": \"customer-1\",\n      \"specversion\": \"1.0\",\n      \"time\": \"1967-07-06T00:41:29.360Z\",\n      \"data\": {\n        \"method\": \"GET\",\n        \"path\": \"/v1/resource\",\n        \"tokens\": 1024\n      }\n    },\n    \"ingestedAt\": \"1991-10-02T13:28:22.430Z\",\n    \"validationError\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a478403-c545-496f-991f-fc5311c439b7",
+              "name": "Authentication is required or the token is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 321,\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca85cb2c-7b56-400f-8d8c-f182fb57263a",
+          "name": "Ingest events",
+          "request": {
+            "name": "Ingest events",
+            "description": {
+              "content": "Ingests an event or batch of events following the CloudEvents specification. Send a single CloudEvent as application/cloudevents+json or a batch as application/cloudevents-batch+json.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/cloudevents+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"source\": \"<string>\",\n  \"type\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"specversion\": \"1.0\",\n  \"time\": \"<dateTime>\",\n  \"data\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1c6b4b65-63a3-42c2-af66-66221ba602a7",
+              "name": "Events accepted for ingestion.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"source\": \"my-app\",\n  \"type\": \"api-calls\",\n  \"subject\": \"customer-1\",\n  \"specversion\": \"1.0\",\n  \"time\": \"<dateTime>\",\n  \"data\": {\n    \"method\": \"GET\",\n    \"path\": \"/v1/resource\",\n    \"tokens\": 1024\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "36e15550-a855-4a71-82a3-bb3fb28434ed",
+              "name": "Malformed CloudEvent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"source\": \"my-app\",\n  \"type\": \"api-calls\",\n  \"subject\": \"customer-1\",\n  \"specversion\": \"1.0\",\n  \"time\": \"<dateTime>\",\n  \"data\": {\n    \"method\": \"GET\",\n    \"path\": \"/v1/resource\",\n    \"tokens\": 1024\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "596fe508-9fc6-4e08-a7e0-ee18cddbb377",
+              "name": "Authentication is required or the token is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"source\": \"my-app\",\n  \"type\": \"api-calls\",\n  \"subject\": \"customer-1\",\n  \"specversion\": \"1.0\",\n  \"time\": \"<dateTime>\",\n  \"data\": {\n    \"method\": \"GET\",\n    \"path\": \"/v1/resource\",\n    \"tokens\": 1024\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 321,\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://openmeter.cloud",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4e20bf5e-6e86-49c8-b48d-837e8d245aa8",
+    "name": "OpenMeter Billing Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.\n\nContact Support:\n Name: OpenMeter Support\n Email: support@openmeter.io",
+      "type": "text/plain"
+    }
+  }
+}

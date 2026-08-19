@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenMeter Billing Entitlements API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Entitlements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all entitlements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/entitlements"
+          },
+          "docs": "List all entitlements"
+        },
+        {
+          "info": {
+            "name": "Get entitlement by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/entitlements/:entitlementId",
+            "params": [
+              {
+                "name": "entitlementId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get entitlement by id"
+        },
+        {
+          "info": {
+            "name": "List subject entitlements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/subjects/:subjectIdOrKey/entitlements",
+            "params": [
+              {
+                "name": "subjectIdOrKey",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List subject entitlements"
+        },
+        {
+          "info": {
+            "name": "Create a subject entitlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/subjects/:subjectIdOrKey/entitlements",
+            "params": [
+              {
+                "name": "subjectIdOrKey",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a subject entitlement"
+        },
+        {
+          "info": {
+            "name": "Get entitlement value",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/subjects/:subjectIdOrKey/entitlements/:entitlementIdOrFeatureKey/value",
+            "params": [
+              {
+                "name": "subjectIdOrKey",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entitlementIdOrFeatureKey",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns whether the subject has access and, for metered entitlements, the current balance, usage, and overage."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

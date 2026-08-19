@@ -1,0 +1,556 @@
+{
+  "item": [
+    {
+      "id": "5e795cac-b719-4809-abfa-a26a25c41799",
+      "name": "Entitlements",
+      "description": {
+        "content": "Metered, boolean, and static entitlements that gate access.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a61c7d6-54e7-4f8f-bc6a-7d8988447c4a",
+          "name": "List all entitlements",
+          "request": {
+            "name": "List all entitlements",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "entitlements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ed7c2fb5-58f1-4a1b-9d0b-5f345d3c495d",
+              "name": "List of entitlements.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "entitlements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"type\": \"static\",\n    \"featureKey\": \"api_requests\",\n    \"id\": \"string\",\n    \"subjectKey\": \"customer-1\",\n    \"usagePeriod\": {\n      \"interval\": \"DAY\",\n      \"anchor\": \"2007-10-10T16:35:36.187Z\"\n    },\n    \"issueAfterReset\": 2976.529182520833\n  },\n  {\n    \"type\": \"static\",\n    \"featureKey\": \"api_requests\",\n    \"id\": \"string\",\n    \"subjectKey\": \"customer-1\",\n    \"usagePeriod\": {\n      \"interval\": \"YEAR\",\n      \"anchor\": \"1953-10-03T00:49:33.827Z\"\n    },\n    \"issueAfterReset\": 5205.338975366166\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3943368c-a249-43d0-acf6-6ac001240886",
+          "name": "Get entitlement by id",
+          "request": {
+            "name": "Get entitlement by id",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "entitlements",
+                ":entitlementId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entitlementId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "994fb981-8634-4afa-b02a-b915a109da7f",
+              "name": "An entitlement.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "entitlements",
+                    ":entitlementId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entitlementId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"static\",\n  \"featureKey\": \"api_requests\",\n  \"id\": \"string\",\n  \"subjectKey\": \"customer-1\",\n  \"usagePeriod\": {\n    \"interval\": \"MONTH\",\n    \"anchor\": \"2026-02-18T21:45:04.169Z\"\n  },\n  \"issueAfterReset\": 9428.999750210443\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "984cfc8c-fb7d-4d1c-ac5f-b600df3c2af4",
+          "name": "List subject entitlements",
+          "request": {
+            "name": "List subject entitlements",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "subjects",
+                ":subjectIdOrKey",
+                "entitlements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subjectIdOrKey",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1c3f2c3-4a92-4488-8ce1-f298e9d8edb9",
+              "name": "The subject's entitlements.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "subjects",
+                    ":subjectIdOrKey",
+                    "entitlements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subjectIdOrKey",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"type\": \"static\",\n    \"featureKey\": \"api_requests\",\n    \"id\": \"string\",\n    \"subjectKey\": \"customer-1\",\n    \"usagePeriod\": {\n      \"interval\": \"DAY\",\n      \"anchor\": \"2007-10-10T16:35:36.187Z\"\n    },\n    \"issueAfterReset\": 2976.529182520833\n  },\n  {\n    \"type\": \"static\",\n    \"featureKey\": \"api_requests\",\n    \"id\": \"string\",\n    \"subjectKey\": \"customer-1\",\n    \"usagePeriod\": {\n      \"interval\": \"YEAR\",\n      \"anchor\": \"1953-10-03T00:49:33.827Z\"\n    },\n    \"issueAfterReset\": 5205.338975366166\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9b20ec8-f00c-4b7f-a782-e85b74963c9d",
+          "name": "Create a subject entitlement",
+          "request": {
+            "name": "Create a subject entitlement",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "subjects",
+                ":subjectIdOrKey",
+                "entitlements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subjectIdOrKey",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"featureKey\": \"<string>\",\n  \"id\": \"<string>\",\n  \"subjectKey\": \"<string>\",\n  \"usagePeriod\": {\n    \"interval\": \"<string>\",\n    \"anchor\": \"<dateTime>\"\n  },\n  \"issueAfterReset\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bd0eaf1e-8eea-4843-b116-51fdc339109a",
+              "name": "Entitlement created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "subjects",
+                    ":subjectIdOrKey",
+                    "entitlements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subjectIdOrKey",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"featureKey\": \"api_requests\",\n  \"id\": \"<string>\",\n  \"subjectKey\": \"customer-1\",\n  \"usagePeriod\": {\n    \"interval\": \"<string>\",\n    \"anchor\": \"<dateTime>\"\n  },\n  \"issueAfterReset\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"<string>\",\n  \"featureKey\": \"api_requests\",\n  \"id\": \"<string>\",\n  \"subjectKey\": \"customer-1\",\n  \"usagePeriod\": {\n    \"interval\": \"<string>\",\n    \"anchor\": \"<dateTime>\"\n  },\n  \"issueAfterReset\": \"<number>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a6b4aeb0-21fe-4ef5-8020-3f7ed48e3222",
+          "name": "Get entitlement value",
+          "request": {
+            "name": "Get entitlement value",
+            "description": {
+              "content": "Returns whether the subject has access and, for metered entitlements, the current balance, usage, and overage.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "subjects",
+                ":subjectIdOrKey",
+                "entitlements",
+                ":entitlementIdOrFeatureKey",
+                "value"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subjectIdOrKey",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entitlementIdOrFeatureKey",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2fff93b7-daf4-4190-a12b-f23dac3f4902",
+              "name": "The entitlement value / balance.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "subjects",
+                    ":subjectIdOrKey",
+                    "entitlements",
+                    ":entitlementIdOrFeatureKey",
+                    "value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subjectIdOrKey",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entitlementIdOrFeatureKey",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"hasAccess\": true,\n  \"balance\": 825.1630229574247,\n  \"usage\": 9697.296784013022,\n  \"overage\": 2394.5488704895056\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://openmeter.cloud",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e2dc747a-b784-4e7f-a0e7-b2057a6085b8",
+    "name": "OpenMeter Billing Entitlements API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.\n\nContact Support:\n Name: OpenMeter Support\n Email: support@openmeter.io",
+      "type": "text/plain"
+    }
+  }
+}

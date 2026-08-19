@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenMeter Billing Meters API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Meters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List meters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/meters"
+          },
+          "docs": "List meters"
+        },
+        {
+          "info": {
+            "name": "Create meter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openmeter.cloud/api/v1/meters",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create meter"
+        },
+        {
+          "info": {
+            "name": "Get meter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/meters/:meterIdOrSlug",
+            "params": [
+              {
+                "name": "meterIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get meter"
+        },
+        {
+          "info": {
+            "name": "Delete meter",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://openmeter.cloud/api/v1/meters/:meterIdOrSlug",
+            "params": [
+              {
+                "name": "meterIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete meter"
+        },
+        {
+          "info": {
+            "name": "Query meter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/meters/:meterIdOrSlug/query",
+            "params": [
+              {
+                "name": "meterIdOrSlug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "windowSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "subject",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "groupBy",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Queries usage for a meter, optionally grouped by subject and time window."
+        },
+        {
+          "info": {
+            "name": "List meter subjects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openmeter.cloud/api/v1/meters/:meterIdOrSlug/subjects",
+            "params": [
+              {
+                "name": "meterIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List meter subjects"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

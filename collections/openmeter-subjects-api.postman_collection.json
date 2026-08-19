@@ -1,0 +1,396 @@
+{
+  "item": [
+    {
+      "id": "a26751a1-dc48-4742-80e9-65b0c2372cca",
+      "name": "Subjects",
+      "description": {
+        "content": "Subjects that usage is metered against.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "78861067-ab2c-44bf-8a18-c82ac223ca24",
+          "name": "List subjects",
+          "request": {
+            "name": "List subjects",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "subjects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8bc015b3-d371-444a-ac78-82d22cb194bc",
+              "name": "List of subjects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "subjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key\": \"customer-1\",\n    \"id\": \"string\",\n    \"displayName\": \"string\",\n    \"metadata\": {\n      \"key_0\": 7365.223261048024,\n      \"key_1\": false\n    },\n    \"stripeCustomerId\": \"string\"\n  },\n  {\n    \"key\": \"customer-1\",\n    \"id\": \"string\",\n    \"displayName\": \"string\",\n    \"metadata\": {\n      \"key_0\": 385,\n      \"key_1\": 6932,\n      \"key_2\": 4241.19251686317,\n      \"key_3\": 9434\n    },\n    \"stripeCustomerId\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "010d101e-f999-4075-b67c-3f389fda2274",
+          "name": "Upsert subjects",
+          "request": {
+            "name": "Upsert subjects",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "subjects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"key\": \"<string>\",\n    \"id\": \"<string>\",\n    \"displayName\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": false\n    },\n    \"stripeCustomerId\": \"<string>\"\n  },\n  {\n    \"key\": \"<string>\",\n    \"id\": \"<string>\",\n    \"displayName\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": false,\n      \"key_1\": 3246.70556947798\n    },\n    \"stripeCustomerId\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cc8b0b55-5119-4597-bd23-4cf2e74f922c",
+              "name": "Subjects upserted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "subjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"key\": \"customer-1\",\n    \"id\": \"<string>\",\n    \"displayName\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": 1629\n    },\n    \"stripeCustomerId\": \"<string>\"\n  },\n  {\n    \"key\": \"customer-1\",\n    \"id\": \"<string>\",\n    \"displayName\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": 7311.414102643907\n    },\n    \"stripeCustomerId\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "980d69d3-c394-4326-99e3-6b2f41c0e460",
+          "name": "Get subject",
+          "request": {
+            "name": "Get subject",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "subjects",
+                ":subjectIdOrKey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subjectIdOrKey",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "005cef37-81fb-442a-aa1a-069371779e01",
+              "name": "A subject.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "subjects",
+                    ":subjectIdOrKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subjectIdOrKey",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key\": \"customer-1\",\n  \"id\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  },\n  \"stripeCustomerId\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df0c0bec-8fc3-4ccb-85eb-c2d3dab10898",
+          "name": "Delete subject",
+          "request": {
+            "name": "Delete subject",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "subjects",
+                ":subjectIdOrKey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subjectIdOrKey",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d3bf7995-4919-4bcf-a6c1-fdad30db8336",
+              "name": "Subject deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "subjects",
+                    ":subjectIdOrKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subjectIdOrKey",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://openmeter.cloud",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "145febec-e677-41ed-b537-8da3648dd971",
+    "name": "OpenMeter Billing Subjects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.\n\nContact Support:\n Name: OpenMeter Support\n Email: support@openmeter.io",
+      "type": "text/plain"
+    }
+  }
+}

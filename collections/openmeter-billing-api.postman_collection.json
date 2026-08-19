@@ -1,0 +1,203 @@
+{
+  "item": [
+    {
+      "id": "012fb69c-a238-431b-a4a0-282eebeeaa40",
+      "name": "Billing",
+      "description": {
+        "content": "Billing profiles, invoices, and customer overrides.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f684a81a-e1bc-4975-866e-09d2a3927cb1",
+          "name": "List invoices",
+          "request": {
+            "name": "List invoices",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bca3b3b9-4021-47ae-a04e-4316ae68180d",
+              "name": "List of invoices.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "billing",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"number\": \"string\",\n    \"customer\": {\n      \"name\": \"string\",\n      \"id\": \"string\",\n      \"key\": \"string\",\n      \"currency\": \"USD\",\n      \"usageAttribution\": {\n        \"subjectKeys\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"status\": \"void\",\n    \"currency\": \"string\",\n    \"total\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"number\": \"string\",\n    \"customer\": {\n      \"name\": \"string\",\n      \"id\": \"string\",\n      \"key\": \"string\",\n      \"currency\": \"USD\",\n      \"usageAttribution\": {\n        \"subjectKeys\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"status\": \"paid\",\n    \"currency\": \"string\",\n    \"total\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "70b1399d-ae91-44a4-bb44-2e35d8cae409",
+          "name": "List billing profiles",
+          "request": {
+            "name": "List billing profiles",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4c4a75a6-4ee2-415a-95cc-11f09c695173",
+              "name": "List of billing profiles.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "billing",
+                    "profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"default\": true,\n    \"supplier\": {\n      \"key_0\": 2568.6686440648755,\n      \"key_1\": \"string\"\n    },\n    \"workflow\": {\n      \"key_0\": 8796.221736141379\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"default\": true,\n    \"supplier\": {\n      \"key_0\": 734\n    },\n    \"workflow\": {\n      \"key_0\": 9270,\n      \"key_1\": 9083,\n      \"key_2\": false\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://openmeter.cloud",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f805214a-faa8-4b0a-abd2-a016c4535950",
+    "name": "OpenMeter Billing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.\n\nContact Support:\n Name: OpenMeter Support\n Email: support@openmeter.io",
+      "type": "text/plain"
+    }
+  }
+}

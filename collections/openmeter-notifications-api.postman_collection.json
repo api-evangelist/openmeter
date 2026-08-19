@@ -1,0 +1,488 @@
+{
+  "item": [
+    {
+      "id": "abbabf47-9259-4c91-bc2b-e82300097f06",
+      "name": "Notifications",
+      "description": {
+        "content": "Notification channels, rules, and events for usage-driven alerts.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b61ec41a-c736-45df-a9f4-bcf6a837fe06",
+          "name": "List notification channels",
+          "request": {
+            "name": "List notification channels",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "notification",
+                "channels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "120f3e43-6835-45fb-99fa-56ce056c5668",
+              "name": "List of notification channels.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "notification",
+                    "channels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"type\": \"WEBHOOK\",\n    \"name\": \"string\",\n    \"id\": \"string\",\n    \"url\": \"https://PYqtTJBtYEXedzuRZRrdpqZHCR.bfkzofW2lJec,dJMWBKWRb-eI-+qGQxeD7qZovWo8z4wjAwB7X8rorSGCCK-a\",\n    \"signingSecret\": \"string\",\n    \"disabled\": false\n  },\n  {\n    \"type\": \"WEBHOOK\",\n    \"name\": \"string\",\n    \"id\": \"string\",\n    \"url\": \"https://hFTymIRHpTZfZIMZxRLNRcSVG.uatiDDq-FmZ7HNQEI4ax-zgxjJQPrn8LUaQ\",\n    \"signingSecret\": \"string\",\n    \"disabled\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a49f04a9-9b1f-4766-b2a1-8eb9fa91401c",
+          "name": "Create a notification channel",
+          "request": {
+            "name": "Create a notification channel",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "notification",
+                "channels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"signingSecret\": \"<string>\",\n  \"disabled\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "873aa0ca-ef3d-4e80-a7a7-09fd3bee3241",
+              "name": "Channel created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "notification",
+                    "channels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"signingSecret\": \"<string>\",\n  \"disabled\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"signingSecret\": \"<string>\",\n  \"disabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c4515b5-e37e-4057-9e84-cbd507cb78cd",
+          "name": "List notification rules",
+          "request": {
+            "name": "List notification rules",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "notification",
+                "rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6414ecd7-280d-4640-aa69-bb14471a41c3",
+              "name": "List of notification rules.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "notification",
+                    "rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"type\": \"entitlements.balance.threshold\",\n    \"name\": \"string\",\n    \"channels\": [\n      \"string\",\n      \"string\"\n    ],\n    \"id\": \"string\",\n    \"thresholds\": [\n      {\n        \"value\": 7946.047219291503,\n        \"type\": \"NUMBER\"\n      },\n      {\n        \"value\": 7312.590256686755,\n        \"type\": \"PERCENT\"\n      }\n    ],\n    \"features\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"type\": \"entitlements.balance.threshold\",\n    \"name\": \"string\",\n    \"channels\": [\n      \"string\",\n      \"string\"\n    ],\n    \"id\": \"string\",\n    \"thresholds\": [\n      {\n        \"value\": 7682.39146479271,\n        \"type\": \"NUMBER\"\n      },\n      {\n        \"value\": 5989.492620733622,\n        \"type\": \"NUMBER\"\n      }\n    ],\n    \"features\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be643002-bcd6-4acf-b1e0-0f3a4f8f9f90",
+          "name": "Create a notification rule",
+          "request": {
+            "name": "Create a notification rule",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "notification",
+                "rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"id\": \"<string>\",\n  \"thresholds\": [\n    {\n      \"value\": \"<number>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"value\": \"<number>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"features\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5c348a95-3447-43f5-8b4c-e8df01d39c17",
+              "name": "Rule created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "notification",
+                    "rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"id\": \"<string>\",\n  \"thresholds\": [\n    {\n      \"value\": \"<number>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"value\": \"<number>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"features\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"id\": \"<string>\",\n  \"thresholds\": [\n    {\n      \"value\": \"<number>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"value\": \"<number>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"features\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a728ac2-3148-477a-a954-814ad1c19b64",
+          "name": "List notification events",
+          "request": {
+            "name": "List notification events",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "notification",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "731cb08c-a87f-46ce-b9f8-0f9ad41354a8",
+              "name": "List of delivered notification events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "notification",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"createdAt\": \"2001-04-08T17:49:50.069Z\",\n    \"rule\": {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"channels\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"id\": \"<string>\",\n      \"thresholds\": [\n        {\n          \"value\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"value\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"features\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"deliveryStatus\": [\n      {\n        \"channelId\": \"string\",\n        \"state\": \"SUCCESS\"\n      },\n      {\n        \"channelId\": \"string\",\n        \"state\": \"SENDING\"\n      }\n    ]\n  },\n  {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"createdAt\": \"2025-07-06T17:22:55.668Z\",\n    \"rule\": {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"channels\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"id\": \"<string>\",\n      \"thresholds\": [\n        {\n          \"value\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"value\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"features\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"deliveryStatus\": [\n      {\n        \"channelId\": \"string\",\n        \"state\": \"PENDING\"\n      },\n      {\n        \"channelId\": \"string\",\n        \"state\": \"FAILED\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://openmeter.cloud",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "89cf78cf-d2a3-4699-b558-5e412d02b012",
+    "name": "OpenMeter Billing Notifications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.\n\nContact Support:\n Name: OpenMeter Support\n Email: support@openmeter.io",
+      "type": "text/plain"
+    }
+  }
+}
