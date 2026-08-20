@@ -27,6 +27,13 @@ tags:
 - Billing
 - Entitlements
 - CloudEvents
+- Open-Source
+- Artificial Intelligence
+tags_raw:
+- Usage Metering
+- Billing
+- Entitlements
+- CloudEvents
 - Open Source
 - AI
 created: '2026-07-01'
@@ -141,6 +148,8 @@ apis:
   humanURL: https://openmeter.io/docs/getting-started/ingestion
   baseURL: https://openmeter.cloud/api/v1
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -277,6 +286,8 @@ apis:
   humanURL: https://openmeter.io/docs/getting-started/ingestion
   baseURL: https://openmeter.cloud/api/v1
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
