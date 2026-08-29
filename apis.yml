@@ -8,6 +8,18 @@ description: OpenMeter is open-source usage metering and billing for AI and API
   usage-driven notifications, and Stripe-backed billing. Available as an open-source
   project and as OpenMeter Cloud with a Bearer-token REST API at
   https://openmeter.cloud/api/v1.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
