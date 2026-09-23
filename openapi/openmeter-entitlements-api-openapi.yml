@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: OpenMeter Billing Entitlements API
-  description: OpenMeter is open-source usage metering and billing for AI and API products. Ingest usage as CloudEvents, define meters that aggregate those events, query usage, manage subjects and customers, gate access with entitlements (metered, boolean, and static), features and grants, react to usage with notifications, and drive billing, plans, and subscriptions with Stripe integration. This is a faithful, representative subset of the real OpenMeter Cloud API (https://openmeter.cloud/api/v1) for API Evangelist catalog purposes; see the canonical spec at https://github.com/openmeterio/openmeter for the full surface.
+  title: OpenMeter Entitlements API
+  description: OpenMeter is open-source usage metering and billing for AI and API products.
   termsOfService: https://openmeter.io/terms
   contact:
     name: OpenMeter Support
@@ -122,17 +122,6 @@ paths:
                 $ref: '#/components/schemas/EntitlementValue'
 components:
   schemas:
-    EntitlementValue:
-      type: object
-      properties:
-        hasAccess:
-          type: boolean
-        balance:
-          type: number
-        usage:
-          type: number
-        overage:
-          type: number
     Entitlement:
       type: object
       required:
@@ -169,6 +158,17 @@ components:
         issueAfterReset:
           type: number
           description: Amount of usage granted at the start of each usage period.
+    EntitlementValue:
+      type: object
+      properties:
+        hasAccess:
+          type: boolean
+        balance:
+          type: number
+        usage:
+          type: number
+        overage:
+          type: number
   securitySchemes:
     BearerAuth:
       type: http
