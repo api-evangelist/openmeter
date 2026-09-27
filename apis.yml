@@ -39,7 +39,7 @@ tags:
 - Billing
 - Entitlements
 - CloudEvents
-- Open-Source
+- Open Source
 - Artificial Intelligence
 tags_raw:
 - Usage Metering
@@ -48,6 +48,7 @@ tags_raw:
 - CloudEvents
 - Open Source
 - AI
+- Open-Source
 created: '2026-07-01'
 modified: '2026-07-01'
 specificationVersion: '0.23'

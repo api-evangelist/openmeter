@@ -165,31 +165,19 @@ paths:
                   type: string
 components:
   responses:
-    Unauthorized:
-      description: Authentication is required or the token is invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Problem'
     NotFound:
       description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Problem'
+    Unauthorized:
+      description: Authentication is required or the token is invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
   schemas:
-    Problem:
-      type: object
-      description: RFC 7807 problem details.
-      properties:
-        type:
-          type: string
-        title:
-          type: string
-        status:
-          type: integer
-        detail:
-          type: string
     MeterQueryResult:
       type: object
       properties:
@@ -266,6 +254,18 @@ components:
           example:
             method: $.method
             path: $.path
+    Problem:
+      type: object
+      description: RFC 7807 problem details.
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
   securitySchemes:
     BearerAuth:
       type: http
