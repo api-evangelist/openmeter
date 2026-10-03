@@ -105,6 +105,32 @@ paths:
                   $ref: '#/components/schemas/NotificationEvent'
 components:
   schemas:
+    NotificationEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        rule:
+          $ref: '#/components/schemas/NotificationRule'
+        deliveryStatus:
+          type: array
+          items:
+            type: object
+            properties:
+              channelId:
+                type: string
+              state:
+                type: string
+                enum:
+                - SUCCESS
+                - FAILED
+                - SENDING
+                - PENDING
     NotificationRule:
       type: object
       required:
@@ -141,32 +167,6 @@ components:
           type: array
           items:
             type: string
-    NotificationEvent:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        rule:
-          $ref: '#/components/schemas/NotificationRule'
-        deliveryStatus:
-          type: array
-          items:
-            type: object
-            properties:
-              channelId:
-                type: string
-              state:
-                type: string
-                enum:
-                - SUCCESS
-                - FAILED
-                - SENDING
-                - PENDING
     NotificationChannel:
       type: object
       required:

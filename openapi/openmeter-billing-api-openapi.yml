@@ -74,6 +74,21 @@ components:
           type: string
         total:
           type: string
+    BillingProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        default:
+          type: boolean
+        supplier:
+          type: object
+          additionalProperties: true
+        workflow:
+          type: object
+          additionalProperties: true
     Customer:
       type: object
       required:
@@ -95,21 +110,6 @@ components:
               type: array
               items:
                 type: string
-    BillingProfile:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        default:
-          type: boolean
-        supplier:
-          type: object
-          additionalProperties: true
-        workflow:
-          type: object
-          additionalProperties: true
   securitySchemes:
     BearerAuth:
       type: http
