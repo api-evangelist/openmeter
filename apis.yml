@@ -41,6 +41,7 @@ tags:
 - CloudEvents
 - Open Source
 - Artificial Intelligence
+- Usage-Based Billing
 tags_raw:
 - Usage Metering
 - Billing
@@ -49,6 +50,7 @@ tags_raw:
 - Open Source
 - AI
 - Open-Source
+- Usage-Based Billing
 created: '2026-07-01'
 modified: '2026-07-01'
 specificationVersion: '0.23'
@@ -398,6 +400,9 @@ apis:
   - type: Documentation
     url: https://openmeter.io/docs/billing/overview
 common:
+- type: CapabilityMap
+  url: capabilities/openmeter-capability-edges.yml
+  name: OpenMeter Business Capability Map
 - type: AgenticAccess
   url: agentic-access/openmeter-agentic-access.yml
 - type: TrustCenter

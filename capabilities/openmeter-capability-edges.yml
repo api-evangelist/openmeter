@@ -1,0 +1,66 @@
+slug: openmeter
+provider: OpenMeter
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Meters
+  spec_file: openmeter-meters-api-openapi.yml
+  capability_id: BC-4250.10
+  capability_id_l1: BC-4250
+  capability_name: Usage Metering
+  confidence: 0.9
+  evidence: 'GET /api/v1/meters/{meterIdOrSlug}/query  queryMeter  Query meter; vendor: ''ingests usage
+    events as CloudEvents, aggregates them through meters'''
+  reason: Meters define and query the aggregation of usage events feeding rating and analytics — textbook
+    usage metering.
+- tag: Events
+  spec_file: openmeter-events-api-openapi.yml
+  capability_id: BC-4250.10
+  capability_id_l1: BC-4250
+  capability_name: Usage Metering
+  confidence: 0.85
+  evidence: POST /api/v1/events  Ingest events; schemas CloudEvent, IngestedEvent; vendor 'ingests usage
+    events as CloudEvents, aggregates them through meters'
+  reason: Ingestion and listing of usage events feeding meters and downstream billing is textbook usage
+    metering, not generic product telemetry, given the explicit billing/rating downstream.
+- tag: Billing
+  spec_file: openmeter-billing-api-openapi.yml
+  capability_id: BC-4250.30
+  capability_id_l1: BC-4250
+  capability_name: Invoicing & Statement Management
+  confidence: 0.8
+  evidence: GET /api/v1/billing/invoices  List invoices; GET /api/v1/billing/profiles  List billing profiles;
+    schemas Invoice, BillingProfile
+  reason: Vendor turns metered usage into Stripe-backed billing; this tag exposes invoices and billing
+    profiles, i.e. subscription invoicing. Only two read operations, so the precise sub-capability carries
+    some ambiguity between invoicing and rating.
+- tag: Entitlements
+  spec_file: openmeter-entitlements-api-openapi.yml
+  capability_id: BC-4240.70
+  capability_id_l1: BC-4240
+  capability_name: Entitlement Enforcement
+  confidence: 0.75
+  evidence: POST /api/v1/subjects/{subjectIdOrKey}/entitlements  Create a subject entitlement; GET /api/v1/subjects/{subjectIdOrKey}/entitlements/{entitlementIdOrFeatureKey}/value  Get
+    entitlement value
+  reason: Per-subject entitlement creation and runtime value resolution is entitlement enforcement in
+    the SaaS commercial lifecycle; vendor description confirms usage 'turns that usage into entitlements,
+    balances, grants'.
+- tag: Plans
+  spec_file: openmeter-plans-api-openapi.yml
+  capability_id: BC-4240.10
+  capability_id_l1: BC-4240
+  capability_name: Plan & Entitlement Design
+  confidence: 0.7
+  evidence: POST /api/v1/plans  createPlan  Create plan
+  reason: Plan creation in a usage-metering/entitlement product defines the commercial plans and the feature
+    entitlements attached to them. Only two thin operations, so moderate confidence.
