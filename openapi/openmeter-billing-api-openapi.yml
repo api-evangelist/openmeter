@@ -54,41 +54,6 @@ paths:
                   $ref: '#/components/schemas/BillingProfile'
 components:
   schemas:
-    Invoice:
-      type: object
-      properties:
-        id:
-          type: string
-        number:
-          type: string
-        customer:
-          $ref: '#/components/schemas/Customer'
-        status:
-          type: string
-          enum:
-          - draft
-          - issued
-          - paid
-          - void
-        currency:
-          type: string
-        total:
-          type: string
-    BillingProfile:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        default:
-          type: boolean
-        supplier:
-          type: object
-          additionalProperties: true
-        workflow:
-          type: object
-          additionalProperties: true
     Customer:
       type: object
       required:
@@ -110,6 +75,41 @@ components:
               type: array
               items:
                 type: string
+    BillingProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        default:
+          type: boolean
+        supplier:
+          type: object
+          additionalProperties: true
+        workflow:
+          type: object
+          additionalProperties: true
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: string
+        number:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        status:
+          type: string
+          enum:
+          - draft
+          - issued
+          - paid
+          - void
+        currency:
+          type: string
+        total:
+          type: string
   securitySchemes:
     BearerAuth:
       type: http

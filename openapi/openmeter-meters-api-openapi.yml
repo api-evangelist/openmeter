@@ -164,54 +164,7 @@ paths:
                 items:
                   type: string
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Problem'
-    Unauthorized:
-      description: Authentication is required or the token is invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Problem'
   schemas:
-    MeterQueryResult:
-      type: object
-      properties:
-        from:
-          type: string
-          format: date-time
-        to:
-          type: string
-          format: date-time
-        windowSize:
-          type: string
-          enum:
-          - MINUTE
-          - HOUR
-          - DAY
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              value:
-                type: number
-              windowStart:
-                type: string
-                format: date-time
-              windowEnd:
-                type: string
-                format: date-time
-              subject:
-                type: string
-              groupBy:
-                type: object
-                additionalProperties:
-                  type: string
     Meter:
       type: object
       required:
@@ -254,6 +207,40 @@ components:
           example:
             method: $.method
             path: $.path
+    MeterQueryResult:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        to:
+          type: string
+          format: date-time
+        windowSize:
+          type: string
+          enum:
+          - MINUTE
+          - HOUR
+          - DAY
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: number
+              windowStart:
+                type: string
+                format: date-time
+              windowEnd:
+                type: string
+                format: date-time
+              subject:
+                type: string
+              groupBy:
+                type: object
+                additionalProperties:
+                  type: string
     Problem:
       type: object
       description: RFC 7807 problem details.
@@ -266,6 +253,19 @@ components:
           type: integer
         detail:
           type: string
+  responses:
+    Unauthorized:
+      description: Authentication is required or the token is invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
   securitySchemes:
     BearerAuth:
       type: http

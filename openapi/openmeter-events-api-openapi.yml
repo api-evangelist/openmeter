@@ -82,6 +82,18 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    IngestedEvent:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/CloudEvent'
+        ingestedAt:
+          type: string
+          format: date-time
+        validationError:
+          type:
+          - string
+          - 'null'
     CloudEvent:
       type: object
       description: A usage event following the CloudEvents 1.0 specification.
@@ -132,18 +144,6 @@ components:
           type: integer
         detail:
           type: string
-    IngestedEvent:
-      type: object
-      properties:
-        event:
-          $ref: '#/components/schemas/CloudEvent'
-        ingestedAt:
-          type: string
-          format: date-time
-        validationError:
-          type:
-          - string
-          - 'null'
   responses:
     Unauthorized:
       description: Authentication is required or the token is invalid.
