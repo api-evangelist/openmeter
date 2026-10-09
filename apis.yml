@@ -429,6 +429,8 @@ common:
   url: rate-limits/openmeter-rate-limits.yml
 - type: FinOps
   url: finops/openmeter-finops.yml
+- type: SpectralRules
+  url: https://github.com/openmeterio/openmeter/blob/e00163c4b8a0726198c95a9ccb158d38ea8c05b8/.spectral.yaml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

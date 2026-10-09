@@ -1,0 +1,13 @@
+# harvested from https://github.com/openmeterio/openmeter/blob/e00163c4b8a0726198c95a9ccb158d38ea8c05b8/.spectral.yaml on 2026-10-09 — a Spectral ruleset published in the provider's own GitHub repository (openmeterio/openmeter); found by GitHub code search, fetched verbatim
+x-method: harvested
+x-stamped: 2026-10-09
+x-source-url: https://github.com/openmeterio/openmeter/blob/e00163c4b8a0726198c95a9ccb158d38ea8c05b8/.spectral.yaml
+extends: [[spectral:oas, recommended]]
+rules:
+  info-contact: off
+
+  # Disabled due to TypeSpec conversion
+  oas3-valid-schema-example: off
+  no-$ref-siblings: off
+  path-params: off
+  oas3-unused-component: off
