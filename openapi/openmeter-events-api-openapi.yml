@@ -82,18 +82,18 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    IngestedEvent:
+    Problem:
       type: object
+      description: RFC 7807 problem details.
       properties:
-        event:
-          $ref: '#/components/schemas/CloudEvent'
-        ingestedAt:
+        type:
           type: string
-          format: date-time
-        validationError:
-          type:
-          - string
-          - 'null'
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
     CloudEvent:
       type: object
       description: A usage event following the CloudEvents 1.0 specification.
@@ -132,18 +132,18 @@ components:
             method: GET
             path: /v1/resource
             tokens: 1024
-    Problem:
+    IngestedEvent:
       type: object
-      description: RFC 7807 problem details.
       properties:
-        type:
+        event:
+          $ref: '#/components/schemas/CloudEvent'
+        ingestedAt:
           type: string
-        title:
-          type: string
-        status:
-          type: integer
-        detail:
-          type: string
+          format: date-time
+        validationError:
+          type:
+          - string
+          - 'null'
   responses:
     Unauthorized:
       description: Authentication is required or the token is invalid.

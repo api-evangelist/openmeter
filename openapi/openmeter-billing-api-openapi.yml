@@ -54,27 +54,6 @@ paths:
                   $ref: '#/components/schemas/BillingProfile'
 components:
   schemas:
-    Customer:
-      type: object
-      required:
-      - name
-      properties:
-        id:
-          type: string
-        key:
-          type: string
-        name:
-          type: string
-        currency:
-          type: string
-          example: USD
-        usageAttribution:
-          type: object
-          properties:
-            subjectKeys:
-              type: array
-              items:
-                type: string
     BillingProfile:
       type: object
       properties:
@@ -110,6 +89,27 @@ components:
           type: string
         total:
           type: string
+    Customer:
+      type: object
+      required:
+      - name
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+        currency:
+          type: string
+          example: USD
+        usageAttribution:
+          type: object
+          properties:
+            subjectKeys:
+              type: array
+              items:
+                type: string
   securitySchemes:
     BearerAuth:
       type: http
