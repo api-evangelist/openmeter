@@ -1,4 +1,4 @@
-# OpenMeter (openmeter)
+# OpenMeter
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,214 +66,141 @@
 
 OpenMeter is open-source usage metering and billing for AI and API products. It ingests usage events as CloudEvents, aggregates them through meters, answers usage queries, and turns that usage into entitlements, balances, grants, usage-driven notifications, and Stripe-backed billing. Available as an open-source project and as OpenMeter Cloud with a Bearer-token REST API at https://openmeter.cloud/api/v1.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/openmeter/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/openmeter/refs/heads/main/apis.yml)
+**Areas:** Usage Metering · Billing · Entitlements · CloudEvents · Open Source · Artificial Intelligence · Usage-Based Billing
 
-## Tags
+## OpenMeter on APIs.io
 
-- Usage Metering
-- Billing
-- Entitlements
-- CloudEvents
-- Open Source
-- AI
+Everything profiled for OpenMeter is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/openmeter/](https://apis.io/providers/openmeter/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (10)
 
-- **Created:** 2026-07-01
-- **Modified:** 2026-07-01
+- [OpenMeter Billing API](https://apis.io/apis/openmeter/openmeter-billing-api/) — Billing profiles, invoices, and customer overrides.
+- [OpenMeter Customers API](https://apis.io/apis/openmeter/openmeter-customers-api/) — Customers used for entitlements, subscriptions, and billing.
+- [OpenMeter Entitlements API](https://apis.io/apis/openmeter/openmeter-entitlements-api/) — Metered, boolean, and static entitlements that gate access.
+- [OpenMeter Events API](https://apis.io/apis/openmeter/openmeter-events-api/) — Ingest usage events as CloudEvents and list ingested events.
+- [OpenMeter Features API](https://apis.io/apis/openmeter/openmeter-features-api/) — Features that entitlements are attached to.
+- [OpenMeter Grants API](https://apis.io/apis/openmeter/openmeter-grants-api/) — Usage grants that top up metered entitlement balances.
+- [OpenMeter Meters API](https://apis.io/apis/openmeter/openmeter-meters-api/) — Define meters that aggregate events and query usage.
+- [OpenMeter Notifications API](https://apis.io/apis/openmeter/openmeter-notifications-api/) — Notification channels, rules, and events for usage-driven alerts.
+- [OpenMeter Plans API](https://apis.io/apis/openmeter/openmeter-plans-api/) — Product catalog plans for subscriptions.
+- [OpenMeter Subjects API](https://apis.io/apis/openmeter/openmeter-subjects-api/) — Subjects that usage is metered against.
 
-## APIs
+### Published properties
 
-### OpenMeter Events Ingestion API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Ingests single or batched usage events that follow the CloudEvents 1.0 specification (application/cloudevents+json and cloudevents-batch+json), and lists ingested events for debugging. Event id enables idempotent deduplication; subject attributes usage; data carries the metered payload.
+#### Agentic access (1)
 
-- **Human URL:** [https://openmeter.io/docs/getting-started/ingestion](https://openmeter.io/docs/getting-started/ingestion)
-- **Base URL:** `https://openmeter.cloud/api/v1`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Openmeter Agentic Access](https://apis.io/agentic-access/openmeter/openmeter-agentic-access/)
 
-- Events
-- Ingestion
-- CloudEvents
+#### Collections (11)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://openmeter.io/docs/getting-started/ingestion)
-- [API Reference](https://openmeter.io/docs/api)
-- [OpenAPI](openapi/openmeter-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openmeter.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openmeter.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [OpenMeter API](https://apis.io/collections/openmeter/open-openmeter/)
+- [OpenMeter Billing API](https://apis.io/collections/openmeter/open-openmeter-billing-api/)
+- [OpenMeter Billing Customers API](https://apis.io/collections/openmeter/open-openmeter-customers-api/)
+- [OpenMeter Billing Entitlements API](https://apis.io/collections/openmeter/open-openmeter-entitlements-api/)
+- [OpenMeter Billing Events API](https://apis.io/collections/openmeter/open-openmeter-events-api/)
+- [OpenMeter Billing Features API](https://apis.io/collections/openmeter/open-openmeter-features-api/)
+- [OpenMeter Billing Grants API](https://apis.io/collections/openmeter/open-openmeter-grants-api/)
+- [OpenMeter Billing Meters API](https://apis.io/collections/openmeter/open-openmeter-meters-api/)
+- [OpenMeter Billing Notifications API](https://apis.io/collections/openmeter/open-openmeter-notifications-api/)
+- [OpenMeter Billing Plans API](https://apis.io/collections/openmeter/open-openmeter-plans-api/)
+- [OpenMeter Billing Subjects API](https://apis.io/collections/openmeter/open-openmeter-subjects-api/)
 
-### OpenMeter Meters API
+#### Governance rules (1)
 
-Create, list, get, and delete meters that aggregate CloudEvents by eventType using SUM, COUNT, UNIQUE_COUNT, AVG, MIN, or MAX, reading the metered value and group-by dimensions from event data via JSONPath.
+Spectral rulesets for the provider's contracts.
 
-- **Human URL:** [https://openmeter.io/docs/getting-started/meters](https://openmeter.io/docs/getting-started/meters)
-- **Base URL:** `https://openmeter.cloud/api/v1`
+- [OpenMeter — openmeter rules](https://apis.io/rules/openmeter/openmeter-openmeter-spectral-rules/)
 
-#### Tags
+#### Security (3)
 
-- Meters
-- Aggregation
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Openmeter Authentication](https://apis.io/security/openmeter/openmeter-authentication/)
+- [Openmeter Domain Security](https://apis.io/security/openmeter/openmeter-domain-security/)
+- [Openmeter Trust Center](https://apis.io/security/openmeter/openmeter-trust-center/)
 
-- [Documentation](https://openmeter.io/docs/getting-started/meters)
-- [OpenAPI](openapi/openmeter-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openmeter.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openmeter.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### OpenMeter Usage Query API
+Published plans, tiers and prices.
 
-Queries aggregated usage for a meter across a time range with MINUTE / HOUR / DAY windows, filtered and grouped by subject and custom groupBy dimensions, plus listing the subjects that have reported usage.
+- [Openmeter Plans Pricing](https://apis.io/plans/openmeter/openmeter-plans-pricing/)
 
-- **Human URL:** [https://openmeter.io/docs/getting-started/query-usage](https://openmeter.io/docs/getting-started/query-usage)
-- **Base URL:** `https://openmeter.cloud/api/v1`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Usage
-- Query
-- Analytics
+- [Openmeter Rate Limits](https://apis.io/rate-limits/openmeter/openmeter-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://openmeter.io/docs/getting-started/query-usage)
-- [OpenAPI](openapi/openmeter-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openmeter.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openmeter.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-### OpenMeter Subjects API
+- [Openmeter Finops](https://apis.io/finops/openmeter/openmeter-finops/)
 
-Upserts, lists, gets, and deletes subjects - the keys (users, customers, tenants) that events are attributed to and that entitlements are provisioned against, optionally mapped to a Stripe customer.
+## Where to find this API
 
-- **Human URL:** [https://openmeter.io/docs/getting-started/subjects](https://openmeter.io/docs/getting-started/subjects)
-- **Base URL:** `https://openmeter.cloud/api/v1`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Subjects
-- Metering
-
-#### Properties
-
-- [Documentation](https://openmeter.io/docs/getting-started/subjects)
-- [OpenAPI](openapi/openmeter-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openmeter.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openmeter.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### OpenMeter Entitlements API
-
-Creates and manages metered, boolean, and static entitlements per subject and returns the entitlement value - hasAccess plus current balance, usage, and overage - so applications can gate features and enforce usage limits in real time.
-
-- **Human URL:** [https://openmeter.io/docs/entitlements/overview](https://openmeter.io/docs/entitlements/overview)
-- **Base URL:** `https://openmeter.cloud/api/v1`
-
-#### Tags
-
-- Entitlements
-- Balances
-- Access Control
-
-#### Properties
-
-- [Documentation](https://openmeter.io/docs/entitlements/overview)
-- [OpenAPI](openapi/openmeter-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openmeter.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openmeter.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### OpenMeter Features API
-
-Defines the features that entitlements attach to, optionally bound to a meter for metered entitlements; supports create, list, get, and archive.
-
-- **Human URL:** [https://openmeter.io/docs/entitlements/features](https://openmeter.io/docs/entitlements/features)
-- **Base URL:** `https://openmeter.cloud/api/v1`
-
-#### Tags
-
-- Features
-- Catalog
-
-#### Properties
-
-- [Documentation](https://openmeter.io/docs/entitlements/features)
-- [OpenAPI](openapi/openmeter-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openmeter.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openmeter.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### OpenMeter Grants API
-
-Issues, lists, and voids usage grants that top up a metered entitlement's balance, with priority-based burn-down, expiration, and recurrence for allowances and credits.
-
-- **Human URL:** [https://openmeter.io/docs/entitlements/grants](https://openmeter.io/docs/entitlements/grants)
-- **Base URL:** `https://openmeter.cloud/api/v1`
-
-#### Tags
-
-- Grants
-- Balances
-- Credits
-
-#### Properties
-
-- [Documentation](https://openmeter.io/docs/entitlements/grants)
-- [OpenAPI](openapi/openmeter-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openmeter.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openmeter.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### OpenMeter Notifications API
-
-Manages webhook notification channels and rules (such as entitlement balance thresholds) and lists delivered notification events with per-channel delivery status, so systems react to usage as it happens.
-
-- **Human URL:** [https://openmeter.io/docs/notifications/overview](https://openmeter.io/docs/notifications/overview)
-- **Base URL:** `https://openmeter.cloud/api/v1`
-
-#### Tags
-
-- Notifications
-- Webhooks
-- Alerts
-
-#### Properties
-
-- [Documentation](https://openmeter.io/docs/notifications/overview)
-- [OpenAPI](openapi/openmeter-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openmeter.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openmeter.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### OpenMeter Billing and Plans API
-
-Turns metered usage into revenue - product-catalog plans, customers, billing profiles, and invoices - with Stripe-backed invoicing and payment collection.
-
-- **Human URL:** [https://openmeter.io/docs/billing/overview](https://openmeter.io/docs/billing/overview)
-- **Base URL:** `https://openmeter.cloud/api/v1`
-
-#### Tags
-
-- Billing
-- Plans
-- Invoicing
-- Stripe
-
-#### Properties
-
-- [Documentation](https://openmeter.io/docs/billing/overview)
-- [OpenAPI](openapi/openmeter-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openmeter.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openmeter.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/openmeterio)
-- [LinkedIn](https://www.linkedin.com/company/openmeter)
 - [Website](https://openmeter.io/)
 - [Documentation](https://openmeter.io/docs)
-- [Plans](plans/openmeter-plans-pricing.yml)
-- [Rate Limits](rate-limits/openmeter-rate-limits.yml)
-- [Fin Ops](finops/openmeter-finops.yml)
+- [Blog](https://openmeter.io/blog)
+- [GitHub](https://github.com/openmeterio)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 31.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 43.1 |
+| Contract governance | 15.2 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 15.8 |
+
+**Agent readiness 19.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 15.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/openmeter/](https://apis.io/providers/openmeter/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for OpenMeter: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/openmeter/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
